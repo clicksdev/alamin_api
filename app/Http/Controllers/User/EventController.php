@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\HandleResponseTrait;
 use App\Models\Event;
+use App\Models\Topevent;
+use App\Models\Ad;
 
 class EventController extends Controller
 {
@@ -53,6 +55,34 @@ class EventController extends Controller
             ],
             [
                 "search" => "البحث بالعنوان او العنوان الفرعي"
+            ]
+        );
+    }
+
+    public function getTop() {
+        $events = Topevent::orderBy("sort", "asc")->get();
+
+        if ($events->count() > 0) {
+            foreach ($events as $item) {
+                $itemObj = $item->type == 1 ? Event::find($item->item_id) : Ad::find($item->item_id);
+                if ($itemObj) {
+                    $itemObj->type = $item->type == 1 ? "Event" : "Ad";
+                    $item->item = $itemObj;
+                }
+            }
+        }
+        return $this->handleResponse(
+            true,
+            "عملية ناجحة",
+            [],
+            [
+                $events
+            ],
+            [
+                "type" => [
+                    1 => "Event",
+                    2 => "Ad"
+                ]
             ]
         );
     }

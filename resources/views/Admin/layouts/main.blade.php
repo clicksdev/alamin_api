@@ -195,6 +195,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route("admin.events.show") }}">Preview</a>
                         <a class="collapse-item" href="{{ route("admin.events.add") }}">Add</a>
+                        <a class="collapse-item" href="{{ route("admin.events.gettop") }}">Top</a>
                     </div>
                 </div>
             </li>

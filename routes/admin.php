@@ -54,6 +54,8 @@ Route::prefix('admin')->group(function () {
             Route::post("/update", [EventController::class, "update"])->name("admin.events.update");
             Route::get("/delete/{id}", [EventController::class, "deleteIndex"])->name("admin.events.delete.confirm");
             Route::post("/delete", [EventController::class, "delete"])->name("admin.events.delete");
+            Route::post("/set-top", [EventController::class, "setTopEvents"])->name("admin.events.settop");
+            Route::get("/get-top", [EventController::class, "getTopEvents"])->name("admin.events.gettop");
         });
 
         // Sponsor

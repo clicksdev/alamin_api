@@ -8,8 +8,11 @@ use App\HandleResponseTrait;
 use App\SaveImageTrait;
 use App\DeleteImageTrait;
 use App\Models\Event;
+use App\Models\Ad;
+use App\Models\Topevent;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
@@ -248,5 +251,54 @@ class EventController extends Controller
                 []
             );
 
+    }
+
+    public function getTopEvents() {
+        $events = Topevent::orderBy("sort", "asc")->get();
+
+        if ($events->count() > 0) {
+            foreach ($events as $item) {
+                $itemObj = $item->type == 1 ? Event::find($item->item_id) : Ad::find($item->item_id);
+                if ($itemObj) {
+                    $itemObj->type = $item->type == 1 ? "Event" : "Ad";
+                    $item->item = $itemObj;
+                }
+            }
+        }
+
+        return view("Admin.events.top")->with(compact("events"));
+    }
+
+    public function setTopEvents(Request $request) {
+
+        try {
+            DB::beginTransaction();
+            DB::commit();
+
+            $events_de = Topevent::truncate();
+            foreach ($request->events as $key => $value) {
+                $value["sort"] = $key;
+                $events = Topevent::create($value);
+            }
+
+
+            return $this->handleResponse(
+                true,
+                "تم الحفظ بنجاح",
+                [],
+                [],
+                []
+            );
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return $this->handleResponse(
+                false,
+                "فشل اكمال الحفظ",
+                [$e->getMessage()],
+                [],
+                []
+            );
+        }
     }
 }

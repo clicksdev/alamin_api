@@ -20,6 +20,7 @@ Route::post("/locations/search", [LocationsController::class, 'search']);
 
 // Events endpoints
 Route::get("/events/get", [EventController::class, 'get']);
+Route::get("/events/top", [EventController::class, 'getTop']);
 Route::post("/events/search", [EventController::class, 'search']);
 
 // Sponsors endpoints
