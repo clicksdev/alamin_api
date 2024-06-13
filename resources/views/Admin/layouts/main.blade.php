@@ -199,6 +199,58 @@
                 </div>
             </li>
 
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#xxxxx"
+                    aria-expanded="true" aria-controls="xxxxx">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Sponsors</span>
+                </a>
+                <div id="xxxxx" class="collapse" aria-labelledby="xxxxx" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route("admin.sponsors.show") }}">Preview</a>
+                        <a class="collapse-item" href="{{ route("admin.sponsors.add") }}">Add</a>
+                    </div>
+                </div>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Restaurants"
+                    aria-expanded="true" aria-controls="Restaurants">
+                    <i class="fas fa-fw fa-utensils"></i>
+                    <span>Restaurants</span>
+                </a>
+                <div id="Restaurants" class="collapse" aria-labelledby="Restaurants" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route("admin.restaurants.show") }}">Preview</a>
+                        <a class="collapse-item" href="{{ route("admin.restaurants.add") }}">Add</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ads"
+                    aria-expanded="true" aria-controls="ads">
+                    <i class="fas fa-fw fa-ad"></i>
+                    <span>Ads</span>
+                </a>
+                <div id="ads" class="collapse" aria-labelledby="ads" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route("admin.ads.show") }}">Preview</a>
+                        <a class="collapse-item" href="{{ route("admin.ads.add") }}">Add</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ route('admin.emails')}}">
+                    <i class="fas fa-fw fa-envelope"></i>
+                    <span>News letter emails</span></a>
+            </li>
+
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

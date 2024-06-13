@@ -6,6 +6,10 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\SponsorController;
+use App\Http\Controllers\Admin\RestaurantController;
+use App\Http\Controllers\Admin\AdController;
+use App\Http\Controllers\User\SubEmailController;
 use App\Http\Middleware\GuestAdminMiddleware;
 
 Route::prefix('admin')->group(function () {
@@ -52,5 +56,46 @@ Route::prefix('admin')->group(function () {
             Route::post("/delete", [EventController::class, "delete"])->name("admin.events.delete");
         });
 
+        // Sponsor
+        Route::prefix('sponsors')->group(function () {
+            Route::get("/", [SponsorController::class, "index"])->name("admin.sponsors.show");
+            Route::get("/get", [SponsorController::class, "get"])->name("admin.sponsors.get");
+            Route::get("/create", [SponsorController::class, "add"])->name("admin.sponsors.add");
+            Route::post("/create", [SponsorController::class, "create"])->name("admin.sponsors.create");
+            Route::get("/edit/{id}", [SponsorController::class, "edit"])->name("admin.sponsors.edit");
+            Route::get("/toggleTop/{id}", [SponsorController::class, "toggleTop"])->name("admin.sponsors.toggleTop");
+            Route::post("/update", [SponsorController::class, "update"])->name("admin.sponsors.update");
+            Route::get("/delete/{id}", [SponsorController::class, "deleteIndex"])->name("admin.sponsors.delete.confirm");
+            Route::post("/delete", [SponsorController::class, "delete"])->name("admin.sponsors.delete");
+        });
+
+        // Restaurants
+        Route::prefix('restaurants')->group(function () {
+            Route::get("/", [RestaurantController::class, "index"])->name("admin.restaurants.show");
+            Route::get("/get", [RestaurantController::class, "get"])->name("admin.restaurants.get");
+            Route::get("/create", [RestaurantController::class, "add"])->name("admin.restaurants.add");
+            Route::post("/create", [RestaurantController::class, "create"])->name("admin.restaurants.create");
+            Route::get("/edit/{id}", [RestaurantController::class, "edit"])->name("admin.restaurants.edit");
+            Route::post("/update", [RestaurantController::class, "update"])->name("admin.restaurants.update");
+            Route::get("/delete/{id}", [RestaurantController::class, "deleteIndex"])->name("admin.restaurants.delete.confirm");
+            Route::post("/delete", [RestaurantController::class, "delete"])->name("admin.restaurants.delete");
+        });
+
+        // Ads
+        Route::prefix('ads')->group(function () {
+            Route::get("/", [AdController::class, "index"])->name("admin.ads.show");
+            Route::get("/get", [AdController::class, "get"])->name("admin.ads.get");
+            Route::get("/create", [AdController::class, "add"])->name("admin.ads.add");
+            Route::post("/create", [AdController::class, "create"])->name("admin.ads.create");
+            Route::get("/edit/{id}", [AdController::class, "edit"])->name("admin.ads.edit");
+            Route::post("/update", [AdController::class, "update"])->name("admin.ads.update");
+            Route::get("/delete/{id}", [AdController::class, "deleteIndex"])->name("admin.ads.delete.confirm");
+            Route::post("/delete", [AdController::class, "delete"])->name("admin.ads.delete");
+        });
+
+        Route::get("/news-emails", function() {
+            return view("Admin.newsLatterEmails.index");
+        })->name("admin.emails");
+        Route::get("/export-emails", [SubEmailController::class, "export"]);
     });
 });

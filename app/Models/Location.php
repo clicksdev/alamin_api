@@ -26,4 +26,8 @@ class Location extends Model
     {
         return $this->hasMany(Event::class, "location_id");
     }
+    public function restaurants()
+    {
+        return $this->hasMany(Restaurant::class, "location_id");
+    }
 }

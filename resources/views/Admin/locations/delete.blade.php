@@ -17,13 +17,8 @@
     <div class="d-flex justify-content-between" style="gap: 16px">
         <div class="w-100">
             <div class="form-group w-100">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" disabled  placeholder="Location Name" v-model="name">
-            </div>
-            <div class="form-group">
-                <label for="Description" class="form-label">Description</label>
-                <textarea rows="5" class="form-control" id="Description"  disabled placeholder="Description Name" style="resize: none" v-model="description">
-                </textarea>
+                <label for="name" class="form-label">Title</label>
+                <input type="text" class="form-control" id="name" disabled  placeholder="Location Title" v-model="title">
             </div>
         </div>
         <div class="form-group pt-4 pb-4" style="width: max-content; height: 300px;min-width: 250px">
@@ -57,8 +52,7 @@ createApp({
     data() {
         return {
             id: '{{ $location->id }}',
-            name: '{{ $location->name }}',
-            description: '{{ $location->description }}',
+            title: '{{ $location->title }}',
             thumbnail: null,
             thumbnail_path: '{{ $location->thumbnail_path }}',
         }

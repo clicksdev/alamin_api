@@ -14,7 +14,7 @@ class LocationsController extends Controller
     public function get() {
         $locations = Location::with(["events" => function ($q) {
             $q->select("id", "title", "sub_title", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to");
-        }])->latest()->get();
+        }, "restaurants"])->latest()->get();
 
         return $this->handleResponse(
             true,
@@ -33,7 +33,7 @@ class LocationsController extends Controller
         $search = $request->search ? $request->search : '';
         $locations = Location::with(["events" => function ($q) {
             $q->select("id", "title", "sub_title", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to");
-        }])->latest()->where('title', 'like', '%' . $search . '%')
+        }, "restaurants"])->latest()->where('title', 'like', '%' . $search . '%')
         ->orWhere('sub_title', 'like', '%' . $search . '%')->get();
 
         return $this->handleResponse(

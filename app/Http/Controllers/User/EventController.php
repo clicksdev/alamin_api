@@ -41,7 +41,7 @@ class EventController extends Controller
                        ->with(['relatedEvents' => function($query) {
                            $query->select("id", "title", "sub_title", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                                  ->where('id', '!=', $query->getModel()->id);
-                       }])
+                       }, "location"])
                        ->get();
 
         return $this->handleResponse(

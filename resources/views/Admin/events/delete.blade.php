@@ -6,24 +6,19 @@
 @section("content")
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Delete Location</h1>
-    <a href="{{ route("admin.locations.show") }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+    <a href="{{ route("admin.events.show") }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
             class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
 </div>
 
-<div class="card p-3 mb-3" id="locations_wrapper">
+<div class="card p-3 mb-3" id="events_wrapper">
     <div class="card-header mb-3">
-        <h3 class="text-danger text-center mb-0">Are you sure you want to delete this location?</h3>
+        <h3 class="text-danger text-center mb-0">Are you sure you want to delete this event?</h3>
     </div>
     <div class="d-flex justify-content-between" style="gap: 16px">
         <div class="w-100">
             <div class="form-group w-100">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" disabled  placeholder="Location Name" v-model="name">
-            </div>
-            <div class="form-group">
-                <label for="Description" class="form-label">Description</label>
-                <textarea rows="5" class="form-control" id="Description"  disabled placeholder="Description Name" style="resize: none" v-model="description">
-                </textarea>
+                <label for="Title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="Title"  placeholder="Event Title" v-model="title">
             </div>
         </div>
         <div class="form-group pt-4 pb-4" style="width: max-content; height: 300px;min-width: 250px">
@@ -42,7 +37,7 @@
         </div>
     </div>
     <div class="form-group w-100 d-flex justify-content-center" style="gap: 16px">
-        <a href="{{ route("admin.locations.show") }}" class="btn btn-secondary w-25">Cancel</a>
+        <a href="{{ route("admin.events.show") }}" class="btn btn-secondary w-25">Cancel</a>
         <button class="btn btn-danger w-25" @click="deleteCat">Delete</button>
     </div>
 </div>
@@ -56,11 +51,10 @@ const { createApp, ref } = Vue
 createApp({
     data() {
         return {
-            id: '{{ $location->id }}',
-            name: '{{ $location->name }}',
-            description: '{{ $location->description }}',
+            id: '{{ $event->id }}',
+            name: '{{ $event->title }}',
             thumbnail: null,
-            thumbnail_path: '{{ $location->thumbnail_path }}',
+            thumbnail_path: '{{ $event->thumbnail_path }}',
         }
     },
     methods: {
@@ -71,7 +65,7 @@ createApp({
         async deleteCat() {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`{{ route("admin.locations.delete") }}`, {
+                const response = await axios.post(`{{ route("admin.events.delete") }}`, {
                     id: this.id
                 },
                 );
@@ -85,7 +79,7 @@ createApp({
                     setTimeout(() => {
                         $('.loader').fadeOut()
                         $('#errors').fadeOut('slow')
-                        window.location.href = '{{ route("admin.locations.show") }}'
+                        window.event.href = '{{ route("admin.events.show") }}'
                     }, 1300);
                 } else {
                     $('.loader').fadeOut()
@@ -119,6 +113,6 @@ createApp({
             }
         }
     },
-}).mount('#locations_wrapper')
+}).mount('#events_wrapper')
 </script>
 @endSection
