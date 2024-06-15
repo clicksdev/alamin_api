@@ -22,6 +22,14 @@
                 <input type="text" class="form-control" id="subTitle"  placeholder="Sub Title" v-model="sub_title">
             </div>
             <div class="form-group w-100">
+                <label for="Title" class="form-label">Title in arabic</label>
+                <input type="text" class="form-control" id="Title"  placeholder="Event Title in arabic" v-model="title_ar">
+            </div>
+            <div class="form-group w-100">
+                <label for="subTitle" class="form-label">Sub Title in arabic</label>
+                <input type="text" class="form-control" id="subTitle"  placeholder="Sub Title in arabic" v-model="sub_title_ar">
+            </div>
+            <div class="form-group w-100">
                 <label for="url" class="form-label">Url</label>
                 <input type="text" class="form-control" id="url"  placeholder="Event Url" v-model="url">
             </div>
@@ -143,6 +151,8 @@ createApp({
         return {
             title: "",
             sub_title: "",
+            title_ar: "",
+            sub_title_ar: "",
             thumbnail_path: null,
             thumbnail: null,
             location_id: null,
@@ -181,6 +191,8 @@ createApp({
                 const response = await axios.post(`{{ route("admin.events.create") }}`, {
                     title: this.title,
                     sub_title: this.sub_title,
+                    title_ar: this.title_ar,
+                    sub_title_ar: this.sub_title_ar,
                     url: this.url,
                     thumbnail: this.thumbnail,
                     location_id: this.location_id,

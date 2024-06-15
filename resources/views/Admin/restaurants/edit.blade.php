@@ -22,6 +22,14 @@
                 <input type="text" class="form-control" id="subTitle"  placeholder="Sub Title" v-model="sub_title">
             </div>
             <div class="form-group w-100">
+                <label for="Title" class="form-label">Title in arabic</label>
+                <input type="text" class="form-control" id="Title"  placeholder="Event Title in arabic" v-model="title_ar">
+            </div>
+            <div class="form-group w-100">
+                <label for="subTitle" class="form-label">Sub Title in arabic</label>
+                <input type="text" class="form-control" id="subTitle"  placeholder="Sub Title in arabic" v-model="sub_title_ar">
+            </div>
+            <div class="form-group w-100">
                 <label for="subTitle" class="form-label">Phone</label>
                 <input type="text" class="form-control" id="subTitle"  placeholder="Phone" v-model="phone">
             </div>
@@ -80,6 +88,8 @@ createApp({
         return {
             title: "{{$restaurant->title}}",
             sub_title: "{{$restaurant->sub_title}}",
+            title_ar: "{{$restaurant->title_ar}}",
+            sub_title_ar: "{{$restaurant->sub_title_ar}}",
             phone: "{{$restaurant->phone}}",
             thumbnail_path: "{{$restaurant->photo_path}}",
             thumbnail: null,
@@ -112,6 +122,8 @@ createApp({
                     id: "{{$restaurant->id}}",
                     title: this.title,
                     sub_title: this.sub_title,
+                    title_ar: this.title_ar,
+                    sub_title_ar: this.sub_title_ar,
                     phone: this.phone,
                     working_from: this.working_from,
                     working_to: this.working_to,

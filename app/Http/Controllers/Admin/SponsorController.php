@@ -54,6 +54,7 @@ class SponsorController extends Controller
     public function create(Request $request) {
         $validator = Validator::make($request->all(), [
             "name" => ["required"],
+            "name_ar" => ["required"],
             "link" => ["required"],
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
@@ -79,6 +80,7 @@ class SponsorController extends Controller
 
         $sponsor = Sponsor::create([
             "name" => $request->name,
+            "name_ar" => $request->name_ar,
             "link" => $request->link,
             "image_path" => '/images/uploads/Sponsors/' . $image,
         ]);
@@ -98,6 +100,7 @@ class SponsorController extends Controller
         $validator = Validator::make($request->all(), [
             "id" => ["required"],
             "name" => ["required"],
+            "name_ar" => ["required"],
             "link" => ["required"],
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
@@ -127,6 +130,7 @@ class SponsorController extends Controller
         }
 
         $sponsor->name = $request->name;
+        $sponsor->name_ar = $request->name_ar;
         $sponsor->link = $request->link;
         $sponsor->save();
 

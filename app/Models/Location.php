@@ -13,6 +13,8 @@ class Location extends Model
         "sub_title",
         "thumbnail_path",
         "url",
+        'title_ar',
+        'sub_title_ar',
     ];
 
     public $table = "locations";

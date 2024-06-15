@@ -22,6 +22,15 @@
                 <textarea rows="5" class="form-control" id="Description"  placeholder="Description Name" style="resize: none" v-model="description">
                 </textarea>
             </div>
+            <div class="form-group w-100">
+                <label for="Title" class="form-label">Title  in arabic</label>
+                <input type="text" class="form-control" id="Title"  placeholder="Category Title in arabic" v-model="title_ar">
+            </div>
+            <div class="form-group">
+                <label for="Description" class="form-label">Description in arabic</label>
+                <textarea rows="5" class="form-control" id="Description"  placeholder="Description in arabic" style="resize: none" v-model="description_ar">
+                </textarea>
+            </div>
         </div>
         <div class="form-group pt-4 pb-4" style="width: max-content; height: 300px;min-width: 250px">
             <label for="thumbnail" class="w-100 h-100">
@@ -70,6 +79,8 @@ createApp({
         return {
             title: null,
             description: null,
+            title_ar: null,
+            description_ar: null,
             thumbnail_path: null,
             thumbnail: null,
             cover_path: null,
@@ -91,6 +102,8 @@ createApp({
                 const response = await axios.post(`{{ route("admin.categories.create") }}`, {
                     title: this.title,
                     description: this.description,
+                    title_ar: this.title_ar,
+                    description_ar: this.description_ar,
                     thumbnail: this.thumbnail,
                     cover: this.cover,
                 },

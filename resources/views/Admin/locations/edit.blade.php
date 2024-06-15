@@ -22,6 +22,14 @@
                 <input type="text" class="form-control" id="Title"  placeholder="Sub Title" v-model="sub_title">
             </div>
             <div class="form-group w-100">
+                <label for="Title" class="form-label">Title in arabic</label>
+                <input type="text" class="form-control" id="Title"  placeholder="Event Title in arabic" v-model="title_ar">
+            </div>
+            <div class="form-group w-100">
+                <label for="subTitle" class="form-label">Sub Title in arabic</label>
+                <input type="text" class="form-control" id="subTitle"  placeholder="Sub Title in arabic" v-model="sub_title_ar">
+            </div>
+            <div class="form-group w-100">
                 <label for="Title" class="form-label">Url</label>
                 <input type="text" class="form-control" id="Title"  placeholder="Location Map Url" v-model="url">
             </div>
@@ -59,6 +67,8 @@ createApp({
             id: '{{ $location->id }}',
             title: '{{ $location->title }}',
             sub_title: '{{ $location->sub_title }}',
+            title_ar: "{{$location->title_ar}}",
+            sub_title_ar: "{{$location->sub_title_ar}}",
             thumbnail: null,
             thumbnail_path: '{{ $location->thumbnail_path }}',
             url: '{{ $location->url }}',
@@ -77,6 +87,8 @@ createApp({
                 const response = await axios.post(`{{ route("admin.locations.update") }}`, {
                     id: this.id,
                     title: this.title,
+                    title_ar: this.title_ar,
+                    sub_title_ar: this.sub_title_ar,
                     url: this.url,
                     thumbnail: this.thumbnail,
                     sub_title: this.sub_title,

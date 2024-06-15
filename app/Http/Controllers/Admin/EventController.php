@@ -59,6 +59,8 @@ class EventController extends Controller
         $validator = Validator::make($request->all(), [
             "title" => ["required", "max:100"],
             "sub_title" => ["required"],
+            "title_ar" => ["required", "max:100"],
+            "sub_title_ar" => ["required"],
             "categories" => ["required"],
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'cover' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -97,6 +99,8 @@ class EventController extends Controller
         $event = Event::create([
             "title" => $request->title,
             "sub_title" => $request->sub_title,
+            "title_ar" => $request->title_ar,
+            "sub_title_ar" => $request->sub_title_ar,
             "url" => $request->url ?? null,
             "thumbnail" => '/images/uploads/Events/' . $thumbnail,
             "cover" => '/images/uploads/Events/' . $cover,
@@ -127,6 +131,8 @@ class EventController extends Controller
             "id" => ["required"],
             "title" => ["required", "max:100"],
             "sub_title" => ["required"],
+            "title_ar" => ["required", "max:100"],
+            "sub_title_ar" => ["required"],
             'thumbnail' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'location_id' => 'required|exists:locations,id',
             'cover' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -182,6 +188,8 @@ class EventController extends Controller
 
         $event->title = $request->title;
         $event->sub_title = $request->sub_title;
+        $event->title_ar = $request->title_ar;
+        $event->sub_title_ar = $request->sub_title_ar;
         $event->url = $request->url ?? null;
         $event->date_from = Carbon::parse($request->date_from);
         $event->date_to = Carbon::parse($request->date_to);

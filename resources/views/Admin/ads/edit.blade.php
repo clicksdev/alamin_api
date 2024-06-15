@@ -18,6 +18,10 @@
                 <input type="text" class="form-control" id="Name"  placeholder="Ad Title" v-model="name">
             </div>
             <div class="form-group w-100">
+                <label for="Title" class="form-label">Title in arabic</label>
+                <input type="text" class="form-control" id="Name"  placeholder="Ad Title in arabic" v-model="name_ar">
+            </div>
+            <div class="form-group w-100">
                 <label for="Url" class="form-label">Url</label>
                 <input type="text" class="form-control" id="Url"  placeholder="Ad Url" v-model="link">
             </div>
@@ -26,6 +30,13 @@
                 <textarea rows="5" class="form-control" id="Description"  placeholder="Description " style="resize: none" v-model="description">
                 </textarea>
             </div>
+
+            <div class="form-group">
+                <label for="Description" class="form-label">Description  in arabic</label>
+                <textarea rows="5" class="form-control" id="Description"  placeholder="Description  in arabic" style="resize: none" v-model="description_ar">
+                </textarea>
+            </div>
+
 
         </div>
         <div class="form-group pt-4 pb-4" style="width: max-content; height: 300px;min-width: 250px">
@@ -60,9 +71,11 @@ createApp({
         return {
             id: '{{ $ad->id }}',
             name: '{{ $ad->title }}',
+            name_ar: '{{ $ad->title_ar }}',
             thumbnail: null,
             thumbnail_path: '{{ $ad->photo_path }}',
             description: '{{ $ad->description }}',
+            description_ar: '{{ $ad->description_ar }}',
             link: '{{ $ad->link }}',
         }
     },
@@ -81,8 +94,10 @@ createApp({
                 const response = await axios.post(`{{ route("admin.ads.update") }}`, {
                     id: this.id,
                     title: this.name,
+                    title_ar: this.name_ar,
                     link: this.link,
                     description: this.description,
+                    description_ar: this.description_ar,
                     photo: this.thumbnail,
                 },
                 {

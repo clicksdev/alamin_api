@@ -14,5 +14,7 @@ class Ad extends Model
         'title',
         'link',
         'description',
+        'title_ar',
+        'description_ar',
     ];
 }

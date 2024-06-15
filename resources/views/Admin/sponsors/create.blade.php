@@ -18,6 +18,10 @@
                 <input type="text" class="form-control" id="Name"  placeholder="Sponsor Name" v-model="name">
             </div>
             <div class="form-group w-100">
+                <label for="Title" class="form-label">Name in arabic</label>
+                <input type="text" class="form-control" id="Name"  placeholder="Sponsor Namein arabic" v-model="name_ar">
+            </div>
+            <div class="form-group w-100">
                 <label for="Url" class="form-label">Url</label>
                 <input type="text" class="form-control" id="Url"  placeholder="Sponsor Url" v-model="link">
             </div>
@@ -53,6 +57,7 @@ createApp({
     data() {
         return {
             name: null,
+            name_ar: null,
             link: null,
             thumbnail_path: null,
             thumbnail: null,
@@ -72,6 +77,7 @@ createApp({
             try {
                 const response = await axios.post(`{{ route("admin.sponsors.create") }}`, {
                     name: this.name,
+                    name_ar: this.name_ar,
                     link: this.link,
                     image: this.thumbnail,
                 },

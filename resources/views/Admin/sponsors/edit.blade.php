@@ -18,6 +18,10 @@
                 <input type="text" class="form-control" id="Name"  placeholder="Sponsor Name" v-model="name">
             </div>
             <div class="form-group w-100">
+                <label for="Title" class="form-label">Name in arabic</label>
+                <input type="text" class="form-control" id="Name"  placeholder="Sponsor Namein arabic" v-model="name_ar">
+            </div>
+            <div class="form-group w-100">
                 <label for="Url" class="form-label">Url</label>
                 <input type="text" class="form-control" id="Url"  placeholder="Sponsor Url" v-model="link">
             </div>
@@ -54,6 +58,7 @@ createApp({
         return {
             id: '{{ $sponsor->id }}',
             name: '{{ $sponsor->name }}',
+            name_ar: '{{ $sponsor->name_ar }}',
             link: '{{ $sponsor->link }}',
             thumbnail: null,
             thumbnail_path: '{{ $sponsor->image_path }}',
@@ -74,6 +79,7 @@ createApp({
                 const response = await axios.post(`{{ route("admin.sponsors.update") }}`, {
                     id: this.id,
                     name: this.name,
+                    name_ar: this.name_ar,
                     link: this.link,
                     image: this.thumbnail,
                 },

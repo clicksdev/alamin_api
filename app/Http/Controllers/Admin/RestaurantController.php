@@ -55,6 +55,8 @@ class RestaurantController extends Controller
         $validator = Validator::make($request->all(), [
             "title" => ["required", "max:100"],
             "sub_title" => ["required"],
+            "title_ar" => ["required", "max:100"],
+            "sub_title_ar" => ["required"],
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'phone' => 'required',
             'working_from' => 'required',
@@ -88,6 +90,8 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::create([
             "title" => $request->title,
             "sub_title" => $request->sub_title,
+            "title_ar" => $request->title_ar,
+            "sub_title_ar" => $request->sub_title_ar,
             "photo_path" => '/images/uploads/Restaurants/' . $photo,
             "phone" => $request->phone,
             "working_from" => $request->working_from,
@@ -110,6 +114,8 @@ class RestaurantController extends Controller
             "id" => ["required"],
             "title" => ["required", "max:100"],
             "sub_title" => ["required"],
+            "title_ar" => ["required", "max:100"],
+            "sub_title_ar" => ["required"],
             'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'phone' => 'required',
             'working_from' => 'required',
@@ -147,6 +153,8 @@ class RestaurantController extends Controller
 
         $restaurant->title = $request->title;
         $restaurant->sub_title = $request->sub_title;
+        $restaurant->title_ar = $request->title_ar;
+        $restaurant->sub_title_ar = $request->sub_title_ar;
         $restaurant->phone = $request->phone;
         $restaurant->working_from = $request->working_from;
         $restaurant->working_to = $request->working_to;

@@ -11,6 +11,7 @@ class Sponsor extends Model
     protected $fillable = [
         "image_path",
         "name",
+        "name_ar",
         "link",
         "isTop"
     ];

@@ -18,12 +18,22 @@
                 <input type="text" class="form-control" id="Name"  placeholder="Ad Title" v-model="name">
             </div>
             <div class="form-group w-100">
+                <label for="Title" class="form-label">Title in arabic</label>
+                <input type="text" class="form-control" id="Name"  placeholder="Ad Title in arabic" v-model="name_ar">
+            </div>
+            <div class="form-group w-100">
                 <label for="Url" class="form-label">Url</label>
                 <input type="text" class="form-control" id="Url"  placeholder="Ad Url" v-model="link">
             </div>
             <div class="form-group">
                 <label for="Description" class="form-label">Description</label>
                 <textarea rows="5" class="form-control" id="Description"  placeholder="Description " style="resize: none" v-model="description">
+                </textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="Description" class="form-label">Description  in arabic</label>
+                <textarea rows="5" class="form-control" id="Description"  placeholder="Description  in arabic" style="resize: none" v-model="description_ar">
                 </textarea>
             </div>
 
@@ -59,7 +69,9 @@ createApp({
     data() {
         return {
             name: null,
+            name_ar: null,
             description: null,
+            description_ar: null,
             link: null,
             thumbnail_path: null,
             thumbnail: null,
@@ -79,8 +91,10 @@ createApp({
             try {
                 const response = await axios.post(`{{ route("admin.ads.create") }}`, {
                     title: this.name,
+                    title_ar: this.name_ar,
                     link: this.link,
                     description: this.description,
+                    description_ar: this.description_ar,
                     photo: this.thumbnail,
                 },
                 {

@@ -57,6 +57,8 @@ class CategoryController extends Controller
         $validator = Validator::make($request->all(), [
             "title" => ["required", "max:100"],
             "description" => ["required"],
+            "title_ar" => ["required", "max:100"],
+            "description_ar" => ["required"],
             'cover' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
@@ -90,6 +92,8 @@ class CategoryController extends Controller
         $category = Category::create([
             "title" => $request->title,
             "description" => $request->description,
+            "title_ar" => $request->title_ar,
+            "description_ar" => $request->description_ar,
             "thumbnail_path" => '/images/uploads/Categories/' . $image,
             "cover_path" => '/images/uploads/Categories/' . $cover,
         ]);
@@ -110,6 +114,8 @@ class CategoryController extends Controller
             "id" => ["required"],
             "title" => ["required", "max:100"],
             "description" => ["required"],
+            "title_ar" => ["required", "max:100"],
+            "description_ar" => ["required"],
             'cover' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'thumbnail' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
@@ -152,6 +158,8 @@ class CategoryController extends Controller
 
         $category->title = $request->title;
         $category->description = $request->description;
+        $category->title_ar = $request->title_ar;
+        $category->description_ar = $request->description_ar;
         $category->save();
 
         if ($category)

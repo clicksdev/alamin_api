@@ -22,6 +22,15 @@
                 <textarea rows="5" class="form-control" id="Description"  placeholder="Description Name" style="resize: none" v-model="description">
                 </textarea>
             </div>
+            <div class="form-group w-100">
+                <label for="title" class="form-label">Titl in arabice</label>
+                <input type="text" class="form-control" id="title"  placeholder="Category Title in arabic" v-model="title_ar">
+            </div>
+            <div class="form-group">
+                <label for="Description" class="form-label">Description in arabic</label>
+                <textarea rows="5" class="form-control" id="Description"  placeholder="Description  in arabic" style="resize: none" v-model="description_ar">
+                </textarea>
+            </div>
         </div>
         <div class="form-group pt-4 pb-4" style="width: max-content; height: 300px;min-width: 250px">
             <label for="thumbnail" class="w-100 h-100">
@@ -71,6 +80,8 @@ createApp({
             id: '{{ $category->id }}',
             title: '{{ $category->title }}',
             description: '{{ $category->description }}',
+            title_ar: '{{ $category->title_ar }}',
+            description_ar: '{{ $category->description_ar }}',
             thumbnail: null,
             thumbnail_path: '{{ $category->thumbnail_path }}',
             cover_path: '{{ $category->thumbnail_path }}',
@@ -94,6 +105,8 @@ createApp({
                     id: this.id,
                     title: this.title,
                     description: this.description,
+                    title_ar: this.title_ar,
+                    description_ar: this.description_ar,
                     thumbnail: this.thumbnail,
                     cover: this.cover,
                 },

@@ -57,6 +57,8 @@ class LocationController extends Controller
         $validator = Validator::make($request->all(), [
             "title" => ["required", "max:100"],
             "sub_title" => ["required"],
+            "sub_title_ar" => ["required"],
+            "title_ar" => ["required", "max:100"],
             "url" => ["required"],
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
@@ -85,6 +87,8 @@ class LocationController extends Controller
         $location = Location::create([
             "title" => $request->title,
             "sub_title" => $request->sub_title,
+            "title_ar" => $request->title_ar,
+            "sub_title_ar" => $request->sub_title_ar,
             "url" => $request->url,
             "thumbnail_path" => '/images/uploads/Locations/' . $image,
         ]);
@@ -105,6 +109,8 @@ class LocationController extends Controller
             "id" => ["required"],
             "title" => ["required", "max:100"],
             "sub_title" => ["required"],
+            "title_ar" => ["required", "max:100"],
+            "sub_title_ar" => ["required"],
             'thumbnail' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             "name.required" => "ادخل اسم الموقع",
@@ -136,6 +142,8 @@ class LocationController extends Controller
 
         $location->title = $request->title;
         $location->sub_title = $request->sub_title;
+        $location->title_ar = $request->title_ar;
+        $location->sub_title_ar = $request->sub_title_ar;
         $location->url = $request->url;
         $location->save();
 

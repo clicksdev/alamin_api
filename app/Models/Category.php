@@ -13,6 +13,8 @@ class Category extends Model
         "description",
         "cover_path",
         "thumbnail_path",
+        'title_ar',
+        'description_ar',
     ];
 
     public $table = "categories";

@@ -54,8 +54,10 @@ class AdController extends Controller
     public function create(Request $request) {
         $validator = Validator::make($request->all(), [
             "title" => ["required"],
+            "title_ar" => ["required"],
             "link" => ["required"],
             "description" => ["required"],
+            "description_ar" => ["required"],
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             "name.required" => "ادخل اسم الاعلان",
@@ -82,6 +84,8 @@ class AdController extends Controller
         $ad = Ad::create([
             "title" => $request->title,
             "description" => $request->description,
+            "title_ar" => $request->title_ar,
+            "description_ar" => $request->description_ar,
             "link" => $request->link,
             "photo_path" => '/images/uploads/Ads/' . $image,
         ]);
@@ -100,9 +104,11 @@ class AdController extends Controller
     public function update(Request $request) {
         $validator = Validator::make($request->all(), [
             "id" => ["required"],
+            "title_ar" => ["required"],
             "title" => ["required"],
             "link" => ["required"],
             "description" => ["required"],
+            "description_ar" => ["required"],
             'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             "name.required" => "ادخل اسم الاعلان",
@@ -135,6 +141,8 @@ class AdController extends Controller
         $ad->title = $request->title;
         $ad->link = $request->link;
         $ad->description = $request->description;
+        $ad->title_ar = $request->title_ar;
+        $ad->description_ar = $request->description_ar;
         $ad->save();
 
         if ($ad)
