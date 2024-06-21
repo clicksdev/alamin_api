@@ -21,6 +21,8 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('/admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js" integrity="sha512-7Pi/otdlbbCR+LnW+F7PwFcSDJOuUJB3OxtEHbg4vSMvzvJjde4Po1v4BR9Gdc9aXNUNFVUY+SK51wWT8WF0Gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
 
@@ -385,7 +387,20 @@
     <script src="{{ asset('/admin/vendor/axios/axios.min.js') }}"></script>
     <script src="{{ asset('/admin/vendor/vue/vue.min.js') }}"></script>
     <script>axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Clear form state to avoid caching issues
+            document.getElementById('main_cat').value = '{{(isset($settingsArray["main_cat"]) && $settingsArray["main_cat"]["value"]) ? $settingsArray["main_cat"]["value"] : ""}}';
+            var selectedValues = @json((isset($settingsArray["main_restaurants"]) && $settingsArray["main_restaurants"]["value"]) ? $settingsArray["main_restaurants"]["value"] : []);
+            var selectElement = document.getElementById('main_restaurants');
 
+            for (var i = 0; i < selectElement.options.length; i++) {
+                if (selectedValues.includes(parseInt(selectElement.options[i].value))) {
+                    selectElement.options[i].selected = true;
+                }
+            }
+        });
+    </script>
     @yield("scripts")
 </body>
 

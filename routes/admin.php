@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\SponsorController;
 use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Controllers\Admin\AdController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\User\SubEmailController;
 use App\Http\Middleware\GuestAdminMiddleware;
 
@@ -99,5 +100,7 @@ Route::prefix('admin')->group(function () {
             return view("Admin.newsLatterEmails.index");
         })->name("admin.emails");
         Route::get("/export-emails", [SubEmailController::class, "export"]);
+
+        Route::post('/store-settings', [SettingsController::class, "store"]);
     });
 });

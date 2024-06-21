@@ -9,6 +9,7 @@ use App\Http\Controllers\User\RestaurantController;
 use App\Http\Controllers\User\SponsorController;
 use App\Http\Controllers\User\AdController;
 use App\Http\Controllers\User\SubEmailController;
+use App\Http\Controllers\User\HomeController;
 
 // Categories endpoints
 Route::get("/categories/get", [CategoriesController::class, 'get']);
@@ -39,4 +40,7 @@ Route::post("/ads/search", [AdController::class, 'search']);
 
 // email endpoints
 Route::post("/subscribe", [SubEmailController::class, 'subscribe']);
+
+// home endpoints
+Route::get("/get-home", [HomeController::class, 'getHomeData']);
 
