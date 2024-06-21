@@ -11,6 +11,7 @@ class Category extends Model
     protected $fillable = [
         "title",
         "description",
+        "svg_icon",
         "cover_path",
         "thumbnail_path",
         'title_ar',

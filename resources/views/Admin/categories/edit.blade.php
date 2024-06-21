@@ -22,6 +22,11 @@
                 <textarea rows="5" class="form-control" id="Description"  placeholder="Description Name" style="resize: none" v-model="description">
                 </textarea>
             </div>
+            <div class="form-group">
+                <label for="svg_icon" class="form-label">SVG</label>
+                <textarea rows="5" class="form-control" id="svg_icon"  placeholder="SVG" style="resize: none" v-model="svg_icon">
+                </textarea>
+            </div>
             <div class="form-group w-100">
                 <label for="title" class="form-label">Titl in arabice</label>
                 <input type="text" class="form-control" id="title"  placeholder="Category Title in arabic" v-model="title_ar">
@@ -80,6 +85,7 @@ createApp({
             id: '{{ $category->id }}',
             title: '{{ $category->title }}',
             description: '{{ $category->description }}',
+            svg_icon: '{{ $category->svg_icon }}',
             title_ar: '{{ $category->title_ar }}',
             description_ar: '{{ $category->description_ar }}',
             thumbnail: null,
@@ -105,6 +111,7 @@ createApp({
                     id: this.id,
                     title: this.title,
                     description: this.description,
+                    svg_icon: this.svg_icon,
                     title_ar: this.title_ar,
                     description_ar: this.description_ar,
                     thumbnail: this.thumbnail,
