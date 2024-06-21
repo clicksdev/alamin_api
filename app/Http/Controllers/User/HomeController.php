@@ -39,16 +39,16 @@ class HomeController extends Controller
         // Get today's events
         $todayEvents = Event::whereDate('date_from', '<=', $today)
                             ->whereDate('date_to', '>=', $today)
-                            ->get();
+                            ->take(6)->get();
 
         // Get tomorrow's events
         $tomorrowEvents = Event::whereDate('date_from', '<=', $tomorrow)
                                ->whereDate('date_to', '>=', $tomorrow)
-                               ->get();
+                               ->take(6)->get();
 
         // Get upcoming events after tomorrow
         $upcomingEvents = Event::whereDate('date_from', '>', $tomorrow)
-                               ->get();
+                               ->take(6)->get();
         $main_restaurants = (isset($settingsArray["main_restaurants"]) && $settingsArray["main_restaurants"]["value"]) ? Restaurant::whereIn("id", json_decode($settingsArray["main_restaurants"]["value"]))->get() : null;
         $all_sponsors = Sponsor::where("isTop", false)->get();
 
