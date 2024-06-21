@@ -23,6 +23,11 @@
                 </textarea>
             </div>
             <div class="form-group">
+                <label for="Description" class="form-label">Description in arabic</label>
+                <textarea rows="5" class="form-control" id="Description"  placeholder="Description in arabic" style="resize: none" v-model="description_ar">
+                </textarea>
+            </div>
+            <div class="form-group">
                 <label for="svg_icon" class="form-label">SVG</label>
                 <textarea rows="5" class="form-control" id="svg_icon"  placeholder="SVG" style="resize: none" v-model="svg_icon">
                 </textarea>
@@ -30,11 +35,6 @@
             <div class="form-group w-100">
                 <label for="Title" class="form-label">Title  in arabic</label>
                 <input type="text" class="form-control" id="Title"  placeholder="Category Title in arabic" v-model="title_ar">
-            </div>
-            <div class="form-group">
-                <label for="Description" class="form-label">Description in arabic</label>
-                <textarea rows="5" class="form-control" id="Description"  placeholder="Description in arabic" style="resize: none" v-model="description_ar">
-                </textarea>
             </div>
         </div>
         <div class="form-group pt-4 pb-4" style="width: max-content; height: 300px;min-width: 250px">

@@ -33,6 +33,16 @@
                 <label for="subTitle" class="form-label">Phone</label>
                 <input type="text" class="form-control" id="subTitle"  placeholder="Phone" v-model="phone">
             </div>
+            <div class="form-group">
+                <label for="Description" class="form-label">Description</label>
+                <textarea rows="5" class="form-control" id="Description"  placeholder="Description Name" style="resize: none" v-model="description">
+                </textarea>
+            </div>
+            <div class="form-group">
+                <label for="Description" class="form-label">Description in arabic</label>
+                <textarea rows="5" class="form-control" id="Description"  placeholder="Description in arabic" style="resize: none" v-model="description_ar">
+                </textarea>
+            </div>
             <div class="form-group w-100">
                 <label for="location" class="form-label">Location</label>
                 @php
@@ -90,6 +100,8 @@ createApp({
             sub_title: "{{$restaurant->sub_title}}",
             title_ar: "{{$restaurant->title_ar}}",
             sub_title_ar: "{{$restaurant->sub_title_ar}}",
+            description: "{{$restaurant->description}}",
+            description_ar: "{{$restaurant->description_ar}}",
             phone: "{{$restaurant->phone}}",
             thumbnail_path: "{{$restaurant->photo_path}}",
             thumbnail: null,
@@ -124,6 +136,8 @@ createApp({
                     sub_title: this.sub_title,
                     title_ar: this.title_ar,
                     sub_title_ar: this.sub_title_ar,
+                    description: this.description,
+                    description_ar: this.description_ar,
                     phone: this.phone,
                     working_from: this.working_from,
                     working_to: this.working_to,

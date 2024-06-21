@@ -14,6 +14,8 @@ class Restaurant extends Model
         'sub_title',
         'title_ar',
         'sub_title_ar',
+        "description",
+        "description_ar",
         'location_id',
         'phone',
         'working_from',
