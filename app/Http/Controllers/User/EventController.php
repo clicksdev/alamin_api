@@ -73,9 +73,9 @@ class EventController extends Controller
             true,
             "عملية ناجحة",
             [],
-            [
+
                 $events
-            ],
+            ,
             [
                 "type" => [
                     1 => "Event",
