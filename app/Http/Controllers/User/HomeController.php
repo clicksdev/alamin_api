@@ -34,7 +34,7 @@ class HomeController extends Controller
 
         $teaser_url = (isset($settingsArray["teaser_url"]) && $settingsArray["teaser_url"]["value"]) ? $settingsArray["teaser_url"]["value"] : '';
         $main_cat = (isset($settingsArray["main_cat"]) && $settingsArray["main_cat"]["value"]) ? Category::with(["events" => function ($q) {
-            $q->with("location");
+            $q->latest()->with("location");
         }])->find($settingsArray["main_cat"]["value"]) : null;
         $amazing_sponsors = Sponsor::where("isTop", true)->get();
 
