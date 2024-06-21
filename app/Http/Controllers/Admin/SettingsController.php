@@ -15,7 +15,7 @@ class SettingsController extends Controller
         }
 
         if ($request->main_restaurants)
-        Setting::updateOrCreate(['key' => $key], ['value' => json_encode($value)]);
+            Setting::updateOrCreate(['key' => "main_restaurants"], ['value' => json_encode($request->main_restaurants)]);
 
 
         return redirect()->to('/admin/dashboard')
