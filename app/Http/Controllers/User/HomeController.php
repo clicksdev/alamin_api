@@ -39,17 +39,17 @@ class HomeController extends Controller
         $amazing_sponsors = Sponsor::where("isTop", true)->get();
 
         // Get today's events
-        $todayEvents = Event::whereDate('date_from', '<=', $today)
+        $todayEvents = Event::with("event_categories")->whereDate('date_from', '<=', $today)
                             ->whereDate('date_to', '>=', $today)
                             ->take(6)->get();
 
         // Get tomorrow's events
-        $tomorrowEvents = Event::whereDate('date_from', '<=', $tomorrow)
+        $tomorrowEvents = Event::with("event_categories")->whereDate('date_from', '<=', $tomorrow)
                                ->whereDate('date_to', '>=', $tomorrow)
                                ->take(6)->get();
 
         // Get upcoming events after tomorrow
-        $upcomingEvents = Event::whereDate('date_from', '>', $tomorrow)
+        $upcomingEvents = Event::with("event_categories")->whereDate('date_from', '>', $tomorrow)
                                ->take(6)->get();
         $main_restaurants = (isset($settingsArray["main_restaurants"]) && $settingsArray["main_restaurants"]["value"]) ? Restaurant::whereIn("id", json_decode($settingsArray["main_restaurants"]["value"]))->get() : null;
         $all_sponsors = Sponsor::where("isTop", false)->get();
