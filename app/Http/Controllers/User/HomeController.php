@@ -33,7 +33,9 @@ class HomeController extends Controller
         })->toArray();
 
         $teaser_url = (isset($settingsArray["teaser_url"]) && $settingsArray["teaser_url"]["value"]) ? $settingsArray["teaser_url"]["value"] : '';
-        $main_cat = (isset($settingsArray["main_cat"]) && $settingsArray["main_cat"]["value"]) ? Category::find($settingsArray["main_cat"]["value"]) : null;
+        $main_cat = (isset($settingsArray["main_cat"]) && $settingsArray["main_cat"]["value"]) ? Category::with(["events" => function ($q) {
+            $q->with("location");
+        }])->find($settingsArray["main_cat"]["value"]) : null;
         $amazing_sponsors = Sponsor::where("isTop", true)->get();
 
         // Get today's events

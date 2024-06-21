@@ -20,4 +20,14 @@ class Category extends Model
 
     public $table = "categories";
 
+    /**
+     * Get all of the events for the Category
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'event_category', 'category_id', 'event_id');
+    }
+
 }
