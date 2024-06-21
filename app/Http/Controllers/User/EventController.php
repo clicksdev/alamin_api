@@ -62,7 +62,7 @@ class EventController extends Controller
 
         if ($events->count() > 0) {
             foreach ($events as $item) {
-                $itemObj = $item->type == 1 ? Event::find($item->item_id) : Ad::find($item->item_id);
+                $itemObj = $item->type == 1 ? Event::with("location")->find($item->item_id) : Ad::find($item->item_id);
                 if ($itemObj) {
                     $itemObj->type = $item->type == 1 ? "Event" : "Ad";
                     $item->item = $itemObj;
