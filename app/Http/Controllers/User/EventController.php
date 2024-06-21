@@ -25,9 +25,8 @@ class EventController extends Controller
             true,
             "عملية ناجحة",
             [],
-            [
                 $events
-            ],
+            ,
             [
                 "يبدا مسار الصورة من بعد الدومين مباشرا"
             ]
@@ -50,9 +49,8 @@ class EventController extends Controller
             true,
             "عملية ناجحة",
             [],
-            [
                 $events
-            ],
+            ,
             [
                 "search" => "البحث بالعنوان او العنوان الفرعي"
             ]

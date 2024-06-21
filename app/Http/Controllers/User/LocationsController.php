@@ -20,9 +20,9 @@ class LocationsController extends Controller
             true,
             "عملية ناجحة",
             [],
-            [
+
                 $locations
-            ],
+            ,
             [
                 "يبدا مسار الصورة من بعد الدومين مباشرا"
             ]
@@ -40,9 +40,9 @@ class LocationsController extends Controller
             true,
             "عملية ناجحة",
             [],
-            [
+
                 $locations
-            ],
+            ,
             [
                 "search" => "البحث بالعنوان او العنوان الفرعي"
             ]

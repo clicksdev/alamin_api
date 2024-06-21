@@ -18,9 +18,9 @@ class SponsorController extends Controller
             true,
             "عملية ناجحة",
             [],
-            [
+
                 $Sponsor
-            ],
+            ,
             [
                 "يبدا مسار الصورة من بعد الدومين مباشرا"
             ]
@@ -35,9 +35,9 @@ class SponsorController extends Controller
             true,
             "عملية ناجحة",
             [],
-            [
+
                 $Sponsor
-            ],
+            ,
             [
                 "search" => "البحث بالاسم"
             ]
