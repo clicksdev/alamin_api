@@ -36,9 +36,9 @@ class CategoriesController extends Controller
             true,
             "عملية ناجحة",
             [],
-            [
-                $categories
-            ],
+
+            $categories
+            ,
             [
                 "search" => "البحث بالاسم او المحتوي"
             ]
