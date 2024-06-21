@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Setting;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $settings = Setting::all();
 
+        $settingsArray = $settings->mapWithKeys(function ($setting) {
+
+            return [
+                $setting->key => [
+                    'value'     => $setting->value,
+                ]
+            ];
+        })->toArray();
+
+        view()->share('settingsArray', $settingsArray);
     }
 }
