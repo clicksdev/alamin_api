@@ -18,9 +18,9 @@ class CategoriesController extends Controller
             true,
             "عملية ناجحة",
             [],
-            [
+
                 $categories
-            ],
+            ,
             [
                 "يبدا مسار الصورة من بعد الدومين مباشرا"
             ]
