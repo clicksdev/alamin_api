@@ -52,7 +52,7 @@
 
                 <div class="form-group">
                     <label for="main_restaurants">Choose Restaurant</label>
-                    <select id="main_restaurants" name="main_restaurants[]" class="form-control" value="{{ (isset($settingsArray["main_restaurants"]) && $settingsArray["main_restaurants"]["value"]) ? @json($settingsArray["main_restaurants"]["value"]) : '' }}" multiple>
+                    <select id="main_restaurants" name="main_restaurants[]" class="form-control" value="{{ (isset($settingsArray["main_restaurants"]) && $settingsArray["main_restaurants"]["value"]) ? $settingsArray["main_restaurants"]["value"] : '' }}" multiple>
                         @foreach($restaurants as $cat)
                             <option value="{{$cat->id}}"
                                 {{ (isset($settingsArray["main_restaurants"]) && $settingsArray["main_restaurants"]["value"] == $cat->id) ? "selected" : '' }}>
