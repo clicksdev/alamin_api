@@ -37,6 +37,8 @@ class Location extends Model
         $locationDetails = [
             'title' => $this->title,
             'sub_title' => $this->sub_title,
+            'title_ar' => $this->title,
+            'sub_title_ar' => $this->sub_title,
             'thumbnail_path' => $this->thumbnail_path,
             'url' => $this->url,
         ];
