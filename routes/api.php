@@ -24,6 +24,7 @@ Route::post("/locations/location", [LocationsController::class, 'getLocation']);
 Route::get("/events/get", [EventController::class, 'get']);
 Route::get("/events/top", [EventController::class, 'getTop']);
 Route::post("/events/search", [EventController::class, 'search']);
+Route::post("/events/event", [EventController::class, 'event']);
 
 // Sponsors endpoints
 Route::get("/sponsors/get-top", [SponsorController::class, 'getTop']);

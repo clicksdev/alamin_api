@@ -14,12 +14,33 @@ class EventController extends Controller
 
     public function get() {
         $events = Event::latest()
-                       ->select("id", "title", "sub_title", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                       ->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                        ->with(['relatedEvents' => function($query) {
-                        $query->select("id", "title", "sub_title", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                        $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                               ->where('date_to', '>=', now()); // Ensure active events only
                         }, "location"])
                        ->get();
+
+        return $this->handleResponse(
+            true,
+            "عملية ناجحة",
+            [],
+                $events
+            ,
+            [
+                "يبدا مسار الصورة من بعد الدومين مباشرا"
+            ]
+        );
+    }
+
+    public function event(Request $request) {
+        $events = Event::latest()
+                       ->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                       ->with(['relatedEvents' => function($query) {
+                        $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                              ->where('date_to', '>=', now()); // Ensure active events only
+                        }, "location"])
+                       ->find($request->id);
 
         return $this->handleResponse(
             true,
