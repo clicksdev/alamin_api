@@ -32,4 +32,37 @@ class Location extends Model
     {
         return $this->hasMany(Restaurant::class, "location_id");
     }
+    public function getLocationDetailsWithEvents()
+    {
+        $locationDetails = [
+            'title' => $this->title,
+            'sub_title' => $this->sub_title,
+            'thumbnail_path' => $this->thumbnail_path,
+            'url' => $this->url,
+        ];
+
+        // Get all events for the location
+        $events = $this->events()->with('event_categories')->get();
+
+        // Initialize an array to store categories with events
+        $categoriesWithEvents = [];
+
+        // Loop through events and group them by category
+        foreach ($events as $event) {
+            foreach ($event->event_categories as $category) {
+                if (!isset($categoriesWithEvents[$category->id])) {
+                    $categoriesWithEvents[$category->id] = [
+                        'name' => $category->title,
+                        'events' => [],
+                    ];
+                }
+                $categoriesWithEvents[$category->id]['events'][] = $event;
+            }
+        }
+
+        // Format the result
+        $locationDetails['categories'] = array_values($categoriesWithEvents);
+
+        return $locationDetails;
+    }
 }

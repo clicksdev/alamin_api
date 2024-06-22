@@ -48,4 +48,25 @@ class LocationsController extends Controller
             ]
         );
     }
+
+    public function getLocation(Request $request) {
+        $location = Location::find($request->id); // Get a location instance
+
+        if ($location) {
+
+            $details = $location->getLocationDetailsWithEvents(); // Get the location details with events grouped by categories
+            return $this->handleResponse(
+                true,
+                "عملية ناجحة",
+                [],
+
+                $details
+                ,
+                [
+                    "search" => "البحث بالعنوان او العنوان الفرعي"
+                    ]
+                );
+        }
+
+    }
 }
