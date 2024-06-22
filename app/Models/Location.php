@@ -53,6 +53,7 @@ class Location extends Model
                 if (!isset($categoriesWithEvents[$category->id])) {
                     $categoriesWithEvents[$category->id] = [
                         'name' => $category->title,
+                        'name_ar' => $category->title_ar,
                         'events' => [],
                     ];
                 }
