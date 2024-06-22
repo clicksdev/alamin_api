@@ -54,6 +54,7 @@ class Location extends Model
                     $categoriesWithEvents[$category->id] = [
                         'name' => $category->title,
                         'name_ar' => $category->title_ar,
+                        'svg_icon' => $category->svg_icon,
                         'events' => [],
                     ];
                 }
