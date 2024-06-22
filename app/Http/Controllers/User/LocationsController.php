@@ -50,7 +50,7 @@ class LocationsController extends Controller
     }
 
     public function getLocation(Request $request) {
-        $location = Location::find($request->id); // Get a location instance
+        $location = Location::with("restaurants")->find($request->id); // Get a location instance
 
         if ($location) {
 
