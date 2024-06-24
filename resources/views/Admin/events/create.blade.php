@@ -1,11 +1,11 @@
 @extends('Admin.layouts.main')
 
-@section("title", "Events - Edit")
-@section("loading_txt", "Edit")
+@section("title", "Events - Create")
+@section("loading_txt", "Create")
 
 @section("content")
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Edit Event</h1>
+    <h1 class="h3 mb-0 text-gray-800">Create Event</h1>
     <a href="{{ route("admin.events.show") }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
             class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
 </div>
