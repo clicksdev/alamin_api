@@ -60,7 +60,6 @@ class RestaurantController extends Controller
             "description" => ["required"],
             "description_ar" => ["required"],
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'phone' => 'required',
             'working_from' => 'required',
             'working_to' => 'required',
             'location_id' => 'required|exists:locations,id',
@@ -97,7 +96,8 @@ class RestaurantController extends Controller
             "description_ar" => $request->description_ar,
             "sub_title_ar" => $request->sub_title_ar,
             "photo_path" => '/images/uploads/Restaurants/' . $photo,
-            "phone" => $request->phone,
+            "phone" => $request->phone ?? null,
+            "website" => $request->website ?? null,
             "working_from" => $request->working_from,
             "working_to" => $request->working_to,
             "location_id" => $request->location_id,
@@ -123,7 +123,6 @@ class RestaurantController extends Controller
             "description" => ["required"],
             "description_ar" => ["required"],
             'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'phone' => 'required',
             'working_from' => 'required',
             'working_to' => 'required',
             'location_id' => 'required|exists:locations,id',
@@ -162,6 +161,7 @@ class RestaurantController extends Controller
         $restaurant->title_ar = $request->title_ar;
         $restaurant->sub_title_ar = $request->sub_title_ar;
         $restaurant->phone = $request->phone;
+        $restaurant->website = $request->website;
         $restaurant->description = $request->description;
         $restaurant->description_ar = $request->description_ar;
         $restaurant->working_from = $request->working_from;

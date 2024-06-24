@@ -18,6 +18,7 @@ class Restaurant extends Model
         "description_ar",
         'location_id',
         'phone',
+        'website',
         'working_from',
         'working_to',
     ];

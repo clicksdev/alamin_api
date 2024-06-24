@@ -33,6 +33,10 @@
                 <label for="subTitle" class="form-label">Phone</label>
                 <input type="text" class="form-control" id="subTitle"  placeholder="Phone" v-model="phone">
             </div>
+            <div class="form-group w-100">
+                <label for="subTitle" class="form-label">website</label>
+                <input type="text" class="form-control" id="subTitle"  placeholder="website" v-model="website">
+            </div>
             <div class="form-group">
                 <label for="Description" class="form-label">Description</label>
                 <textarea rows="5" class="form-control" id="Description"  placeholder="Description Name" style="resize: none" v-model="description">
@@ -103,6 +107,7 @@ createApp({
             description: "{{$restaurant->description}}",
             description_ar: "{{$restaurant->description_ar}}",
             phone: "{{$restaurant->phone}}",
+            website: "{{$restaurant->website}}",
             thumbnail_path: "{{$restaurant->photo_path}}",
             thumbnail: null,
             location_id: "{{$restaurant->location_id}}",
@@ -139,6 +144,7 @@ createApp({
                     description: this.description,
                     description_ar: this.description_ar,
                     phone: this.phone,
+                    website: this.website,
                     working_from: this.working_from,
                     working_to: this.working_to,
                     photo: this.thumbnail,
