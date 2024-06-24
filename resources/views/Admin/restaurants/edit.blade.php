@@ -1,11 +1,11 @@
 @extends('Admin.layouts.main')
 
-@section("title", "Restaurants - Edit")
+@section("title", "Services - Edit")
 @section("loading_txt", "Edit")
 
 @section("content")
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Edit Restaurant</h1>
+    <h1 class="h3 mb-0 text-gray-800">Edit Service</h1>
     <a href="{{ route("admin.restaurants.show") }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
             class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
 </div>
@@ -15,7 +15,7 @@
         <div class="w-100">
             <div class="form-group w-100">
                 <label for="Title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="Title"  placeholder="Restaurant Title" v-model="title">
+                <input type="text" class="form-control" id="Title"  placeholder="Service Title" v-model="title">
             </div>
             <div class="form-group w-100">
                 <label for="subTitle" class="form-label">Sub Title</label>
@@ -77,7 +77,7 @@
                 </svg>
                 <img v-if="thumbnail_path" :src="thumbnail_path" style="width: 100%; height: 100%; object-fit: cover; padding: 10px; border: 1px solid; border-radius: 1rem" />
             </label>
-        <input type="file" class="form-control d-none" id="thumbnail"  placeholder="Restaurant Thumbnail Picture" @change="handleChangeThumbnail">
+        <input type="file" class="form-control d-none" id="thumbnail"  placeholder="Service Thumbnail Picture" @change="handleChangeThumbnail">
         </div>
 
         </div>

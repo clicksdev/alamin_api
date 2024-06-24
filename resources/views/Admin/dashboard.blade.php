@@ -18,7 +18,7 @@
                 <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Contact</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Home Restaurants</button>
+                <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Home Services</button>
             </li>
         </ul>
         <div class="tab-content" id="pills-tabContent">
@@ -51,7 +51,7 @@
                 @endphp
 
                 <div class="form-group">
-                    <label for="main_restaurants">Choose Restaurant</label>
+                    <label for="main_restaurants">Choose Services</label>
                     <select id="main_restaurants" name="main_restaurants[]" class="form-control" value="{{ (isset($settingsArray["main_restaurants"]) && $settingsArray["main_restaurants"]["value"]) ? $settingsArray["main_restaurants"]["value"] : '' }}" multiple>
                         @foreach($restaurants as $cat)
                             <option value="{{$cat->id}}"
