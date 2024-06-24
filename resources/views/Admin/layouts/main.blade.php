@@ -221,7 +221,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Restaurants"
                     aria-expanded="true" aria-controls="Restaurants">
                     <i class="fas fa-fw fa-utensils"></i>
-                    <span>Restaurants</span>
+                    <span>Services</span>
                 </a>
                 <div id="Restaurants" class="collapse" aria-labelledby="Restaurants" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
