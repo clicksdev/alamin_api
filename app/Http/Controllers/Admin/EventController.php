@@ -91,10 +91,10 @@ class EventController extends Controller
             );
         }
 
-        $thumbnail = $this->saveImg($request->thumbnail, 'images/uploads/Events', time());
-        $cover = $this->saveImg($request->cover, 'images/uploads/Events', time());
-        $landscape = $this->saveImg($request->landscape, 'images/uploads/Events', time());
-        $portrait = $this->saveImg($request->portrait, 'images/uploads/Events', time());
+        $thumbnail = $this->saveImg($request->thumbnail, 'images/uploads/Events', "thum" .time());
+        $cover = $this->saveImg($request->cover, 'images/uploads/Events', "cover" . time());
+        $landscape = $this->saveImg($request->landscape, 'images/uploads/Events', "land" . time());
+        $portrait = $this->saveImg($request->portrait, 'images/uploads/Events', "portrait" . time());
 
         $event = Event::create([
             "title" => $request->title,
@@ -164,25 +164,25 @@ class EventController extends Controller
 
         if ($request->thumbnail) {
             $this->deleteFile(public_path($event->thumbnail));
-            $thumbnail = $this->saveImg($request->thumbnail, 'images/uploads/Events', time());
+            $thumbnail = $this->saveImg($request->thumbnail, 'images/uploads/Events', "thum" . time());
             $event->thumbnail = '/images/uploads/Events/' . $thumbnail;
         }
 
         if ($request->cover) {
             $this->deleteFile(public_path($event->cover));
-            $cover = $this->saveImg($request->cover, 'images/uploads/Events', time());
+            $cover = $this->saveImg($request->cover, 'images/uploads/Events', "cover" . time());
             $event->cover = '/images/uploads/Events/' . $cover;
         }
 
         if ($request->landscape) {
             $this->deleteFile(public_path($event->landscape));
-            $landscape = $this->saveImg($request->landscape, 'images/uploads/Events', time());
+            $landscape = $this->saveImg($request->landscape, 'images/uploads/Events', "lang" . time());
             $event->landscape = '/images/uploads/Events/' . $landscape;
         }
 
         if ($request->portrait) {
             $this->deleteFile(public_path($event->portrait));
-            $portrait = $this->saveImg($request->portrait, 'images/uploads/Events', time());
+            $portrait = $this->saveImg($request->portrait, 'images/uploads/Events', "port" . time());
             $event->portrait = '/images/uploads/Events/' . $portrait;
         }
 

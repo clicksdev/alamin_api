@@ -83,8 +83,8 @@ class LocationController extends Controller
             );
         }
 
-        $image = $this->saveImg($request->thumbnail, 'images/uploads/Locations', time());
-        $cover = $this->saveImg($request->cover, 'images/uploads/Locations', time());
+        $image = $this->saveImg($request->thumbnail, 'images/uploads/Locations', "thum" . time());
+        $cover = $this->saveImg($request->cover, 'images/uploads/Locations', "cover" . time());
 
         $location = Location::create([
             "title" => $request->title,
@@ -140,13 +140,13 @@ class LocationController extends Controller
 
         if ($request->thumbnail) {
             $this->deleteFile(base_path($location->thumbnail_path));
-            $image = $this->saveImg($request->thumbnail, 'images/uploads/Locations', time());
+            $image = $this->saveImg($request->thumbnail, 'images/uploads/Locations', "thum" . time());
             $location->thumbnail_path= '/images/uploads/Locations/' . $image;
         }
 
         if ($request->cover) {
             $this->deleteFile(base_path($location->cover_path));
-            $image = $this->saveImg($request->cover, 'images/uploads/Locations', time());
+            $image = $this->saveImg($request->cover, 'images/uploads/Locations', "cover" . time());
             $location->thumbnail_path= '/images/uploads/Locations/' . $image;
         }
 

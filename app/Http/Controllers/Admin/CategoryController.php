@@ -86,10 +86,10 @@ class CategoryController extends Controller
             );
         }
 
-        $image = $this->saveImg($request->thumbnail, 'images/uploads/Categories', time());
+        $image = $this->saveImg($request->thumbnail, 'images/uploads/Categories', "thum" . time());
 
-        $cover = $this->saveImg($request->cover, 'images/uploads/Categories', time());
-        $svg_icon = $this->saveImg($request->svg_icon, 'images/uploads/Categories', time());
+        $cover = $this->saveImg($request->cover, 'images/uploads/Categories', "cover" . time());
+        $svg_icon = $this->saveImg($request->svg_icon, 'images/uploads/Categories', "svg_icon" . time());
 
         $category = Category::create([
             "title" => $request->title,
@@ -150,20 +150,20 @@ class CategoryController extends Controller
 
         if ($request->thumbnail) {
             $this->deleteFile(base_path($category->thumbnail_path));
-            $image = $this->saveImg($request->thumbnail, 'images/uploads/Categories', time());
+            $image = $this->saveImg($request->thumbnail, 'images/uploads/Categories', "thum" . time());
             $category->thumbnail_path= '/images/uploads/Categories/' . $image;
         }
 
         if ($request->cover) {
             $this->deleteFile(base_path($category->cover_path));
-            $image = $this->saveImg($request->cover, 'images/uploads/Categories', time());
+            $image = $this->saveImg($request->cover, 'images/uploads/Categories', "cover" . time());
             $category->thumbnail_path= '/images/uploads/Categories/' . $image;
         }
 
         if ($request->svg_icon) {
             $this->deleteFile(base_path($category->svg_icon));
-            $image = $this->saveImg($request->svg_icon, 'images/uploads/Categories', time());
-            $category->svg_icon= '/images/uploads/Categories/' . $image;
+            $image = $this->saveImg($request->svg_icon, 'images/uploads/Categories', "svg_icon" . time());
+            $category->svg_icon= '/images/uploads/Categories/' .  $image;
         }
 
         $category->title = $request->title;
