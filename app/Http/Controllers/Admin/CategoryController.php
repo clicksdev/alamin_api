@@ -57,9 +57,9 @@ class CategoryController extends Controller
         $validator = Validator::make($request->all(), [
             "title" => ["required", "max:100"],
             "description" => ["required"],
-            "svg_icon" => ["required"],
             "title_ar" => ["required", "max:100"],
             "description_ar" => ["required"],
+            'svg_icon' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'cover' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
@@ -89,11 +89,12 @@ class CategoryController extends Controller
         $image = $this->saveImg($request->thumbnail, 'images/uploads/Categories', time());
 
         $cover = $this->saveImg($request->cover, 'images/uploads/Categories', time());
+        $svg_icon = $this->saveImg($request->svg_icon, 'images/uploads/Categories', time());
 
         $category = Category::create([
             "title" => $request->title,
             "description" => $request->description,
-            "svg_icon" => $request->svg_icon,
+            "svg_icon" => $svg_icon,
             "title_ar" => $request->title_ar,
             "description_ar" => $request->description_ar,
             "thumbnail_path" => '/images/uploads/Categories/' . $image,
@@ -116,10 +117,10 @@ class CategoryController extends Controller
             "id" => ["required"],
             "title" => ["required", "max:100"],
             "description" => ["required"],
-            "svg_icon" => ["required"],
             "title_ar" => ["required", "max:100"],
             "description_ar" => ["required"],
             'cover' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'svg_icon' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'thumbnail' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             "name.required" => "ادخل اسم القسم",
@@ -159,9 +160,14 @@ class CategoryController extends Controller
             $category->thumbnail_path= '/images/uploads/Categories/' . $image;
         }
 
+        if ($request->svg_icon) {
+            $this->deleteFile(base_path($category->svg_icon));
+            $image = $this->saveImg($request->svg_icon, 'images/uploads/Categories', time());
+            $category->svg_icon= '/images/uploads/Categories/' . $image;
+        }
+
         $category->title = $request->title;
         $category->description = $request->description;
-        $category->svg_icon = $request->svg_icon;
         $category->title_ar = $request->title_ar;
         $category->description_ar = $request->description_ar;
         $category->save();

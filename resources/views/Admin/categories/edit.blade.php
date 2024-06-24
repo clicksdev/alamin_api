@@ -22,11 +22,6 @@
                 <textarea rows="5" class="form-control" id="Description"  placeholder="Description Name" style="resize: none" v-model="description">
                 </textarea>
             </div>
-            <div class="form-group">
-                <label for="svg_icon" class="form-label">SVG</label>
-                <textarea rows="5" class="form-control" id="svg_icon"  placeholder="SVG" style="resize: none" v-model="svg_icon">
-                </textarea>
-            </div>
             <div class="form-group w-100">
                 <label for="title" class="form-label">Titl in arabice</label>
                 <input type="text" class="form-control" id="title"  placeholder="Category Title in arabic" v-model="title_ar">
@@ -51,6 +46,21 @@
                 <img v-if="thumbnail_path" :src="thumbnail_path" style="width: 100%; height: 100%; object-fit: cover; padding: 10px; border: 1px solid; border-radius: 1rem" />
             </label>
         <input type="file" class="form-control d-none" id="thumbnail"  placeholder="Category Thumbnail Picture" @change="handleChangeThumbnail">
+        </div>
+        <div class="form-group pt-4 pb-4" style="width: max-content; height: 100px;min-width: 100px;background: #000;margin-top: 24px">
+            <label for="svg_icon" class="w-100 h-100">
+                <svg v-if="!svg_icon && !svg_icon_path" xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-photo-up" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" style="width: 100%; height: 100%; object-fit: cover; padding: 10px; border: 1px solid; border-radius: 1rem" stroke="#fff" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M15 8h.01" />
+                    <path d="M12.5 21h-6.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6.5" />
+                    <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3.5 3.5" />
+                    <path d="M14 14l1 -1c.679 -.653 1.473 -.829 2.214 -.526" />
+                    <path d="M19 22v-6" />
+                    <path d="M22 19l-3 -3l-3 3" />
+                </svg>
+                <img v-if="svg_icon_path" :src="svg_icon_path" style="w idth: 100%; height: 100%; object-fit: cover; padding: 10px; border: 1px solid; border-radius: 1rem" />
+            </label>
+        <input type="file" class="form-control d-none" id="svg_icon"  placeholder="Category Thumbnail Picture" @change="handleChangeSvg">
         </div>
     </div>
     <div class="form-group pb-4" style="width: max-content; height: 350px;min-width: 100%">
@@ -85,7 +95,8 @@ createApp({
             id: '{{ $category->id }}',
             title: '{{ $category->title }}',
             description: '{{ $category->description }}',
-            svg_icon: '{{ $category->svg_icon }}',
+            svg_icon: null,
+            svg_icon_path: '{{ $category->svg_icon }}',
             title_ar: '{{ $category->title_ar }}',
             description_ar: '{{ $category->description_ar }}',
             thumbnail: null,
@@ -103,6 +114,10 @@ createApp({
         handleChangecover(event) {
             this.cover = event.target.files[0]
             this.cover_path = URL.createObjectURL(event.target.files[0])
+        },
+        handleChangeSvg(event) {
+            this.svg_icon = event.target.files[0]
+            this.svg_icon_path = URL.createObjectURL(event.target.files[0])
         },
         async update() {
             $('.loader').fadeIn().css('display', 'flex')
