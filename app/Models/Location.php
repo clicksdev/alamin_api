@@ -58,6 +58,7 @@ class Location extends Model
                         'name' => $category->title,
                         'name_ar' => $category->title_ar,
                         'svg_icon' => $category->svg_icon,
+                        'cover_path' => $category->cover_path,
                         'events' => [],
                     ];
                 }
