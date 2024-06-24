@@ -12,7 +12,7 @@ class CategoriesController extends Controller
     use HandleResponseTrait;
 
     public function get() {
-        $categories = Category::latest()->get();
+        $categories = Category::get();
 
         return $this->handleResponse(
             true,
@@ -29,7 +29,7 @@ class CategoriesController extends Controller
 
     public function search(Request $request) {
         $search = $request->search ? $request->search : '';
-        $categories = Category::latest()->where('title', 'like', '%' . $search . '%')
+        $categories = Category::where('title', 'like', '%' . $search . '%')
         ->orWhere('description', 'like', '%' . $search . '%')->get();
 
         return $this->handleResponse(
