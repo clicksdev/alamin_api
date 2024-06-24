@@ -41,6 +41,7 @@ class Location extends Model
             'title_ar' => $this->title_ar,
             'sub_title_ar' => $this->sub_title_ar,
             'thumbnail_path' => $this->thumbnail_path,
+            'cover_path' => $this->cover_path,
             'url' => $this->url,
         ];
 
@@ -58,7 +59,6 @@ class Location extends Model
                         'name' => $category->title,
                         'name_ar' => $category->title_ar,
                         'svg_icon' => $category->svg_icon,
-                        'cover_path' => $category->cover_path,
                         'events' => [],
                     ];
                 }
