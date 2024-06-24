@@ -61,6 +61,7 @@ class LocationController extends Controller
             "title_ar" => ["required", "max:100"],
             "url" => ["required"],
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'cover' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             "name.required" => "ادخل اسم الموقع",
             "name.max" => "يجب الا يتعدى اسم الموقع 100 حرف",
@@ -83,6 +84,7 @@ class LocationController extends Controller
         }
 
         $image = $this->saveImg($request->thumbnail, 'images/uploads/Locations', time());
+        $cover = $this->saveImg($request->cover, 'images/uploads/Locations', time());
 
         $location = Location::create([
             "title" => $request->title,
@@ -90,6 +92,7 @@ class LocationController extends Controller
             "title_ar" => $request->title_ar,
             "sub_title_ar" => $request->sub_title_ar,
             "url" => $request->url,
+            "cover_path" => '/images/uploads/Locations/' . $cover,
             "thumbnail_path" => '/images/uploads/Locations/' . $image,
         ]);
 
@@ -111,6 +114,7 @@ class LocationController extends Controller
             "sub_title" => ["required"],
             "title_ar" => ["required", "max:100"],
             "sub_title_ar" => ["required"],
+            'cover' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'thumbnail' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             "name.required" => "ادخل اسم الموقع",
@@ -137,6 +141,12 @@ class LocationController extends Controller
         if ($request->thumbnail) {
             $this->deleteFile(base_path($location->thumbnail_path));
             $image = $this->saveImg($request->thumbnail, 'images/uploads/Locations', time());
+            $location->thumbnail_path= '/images/uploads/Locations/' . $image;
+        }
+
+        if ($request->cover) {
+            $this->deleteFile(base_path($location->cover_path));
+            $image = $this->saveImg($request->cover, 'images/uploads/Locations', time());
             $location->thumbnail_path= '/images/uploads/Locations/' . $image;
         }
 

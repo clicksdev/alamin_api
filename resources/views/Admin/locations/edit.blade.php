@@ -50,6 +50,21 @@
         <input type="file" class="form-control d-none" id="thumbnail"  placeholder="Location Thumbnail Picture" @change="handleChangeThumbnail">
         </div>
     </div>
+    <div class="form-group pb-4" style="width: max-content; height: 350px;min-width: 100%">
+        <label for="cover" class="w-100 h-100">
+            <svg v-if="!cover && !cover_path" xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-photo-up" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" style="width: 100%; height: 100%; object-fit: cover; padding: 10px; border: 1px solid; border-radius: 1rem" stroke="#043343" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M15 8h.01" />
+                <path d="M12.5 21h-6.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6.5" />
+                <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3.5 3.5" />
+                <path d="M14 14l1 -1c.679 -.653 1.473 -.829 2.214 -.526" />
+                <path d="M19 22v-6" />
+                <path d="M22 19l-3 -3l-3 3" />
+            </svg>
+            <img v-if="cover_path" :src="cover_path" style="width: 100%; height: 100%; object-fit: cover; padding: 10px; border: 1px solid; border-radius: 1rem" />
+        </label>
+        <input type="file" class="form-control d-none" id="cover"  placeholder="Category cover Picture" @change="handleChangecover">
+    </div>
     <div class="form-group">
         <button class="btn btn-success w-25" @click="update">Update</button>
     </div>
@@ -71,6 +86,8 @@ createApp({
             sub_title_ar: "{{$location->sub_title_ar}}",
             thumbnail: null,
             thumbnail_path: '{{ $location->thumbnail_path }}',
+            cover: null,
+            cover_path: '{{ $location->cover_path }}',
             url: '{{ $location->url }}',
             cover: null
 
@@ -91,6 +108,7 @@ createApp({
                     sub_title_ar: this.sub_title_ar,
                     url: this.url,
                     thumbnail: this.thumbnail,
+                    cover: this.cover,
                     sub_title: this.sub_title,
                 },
                 {

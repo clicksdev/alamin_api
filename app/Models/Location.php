@@ -15,6 +15,7 @@ class Location extends Model
         "url",
         'title_ar',
         'sub_title_ar',
+        'cover_path',
     ];
 
     public $table = "locations";
