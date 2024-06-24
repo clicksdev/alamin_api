@@ -94,7 +94,7 @@ class CategoryController extends Controller
         $category = Category::create([
             "title" => $request->title,
             "description" => $request->description,
-            "svg_icon" => $svg_icon,
+            "svg_icon" => '/images/uploads/Categories/' . $svg_icon,
             "title_ar" => $request->title_ar,
             "description_ar" => $request->description_ar,
             "thumbnail_path" => '/images/uploads/Categories/' . $image,
