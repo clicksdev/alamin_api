@@ -101,7 +101,7 @@ createApp({
             description_ar: '{{ $category->description_ar }}',
             thumbnail: null,
             thumbnail_path: '{{ $category->thumbnail_path }}',
-            cover_path: '{{ $category->thumbnail_path }}',
+            cover_path: '{{ $category->cover }}',
             cover: null
 
         }

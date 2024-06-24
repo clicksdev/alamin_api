@@ -157,7 +157,7 @@ class CategoryController extends Controller
         if ($request->cover) {
             $this->deleteFile(base_path($category->cover_path));
             $image = $this->saveImg($request->cover, 'images/uploads/Categories', "cover" . time());
-            $category->thumbnail_path= '/images/uploads/Categories/' . $image;
+            $category->cover_path= '/images/uploads/Categories/' . $image;
         }
 
         if ($request->svg_icon) {
