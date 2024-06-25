@@ -29,7 +29,7 @@ class CategoriesController extends Controller
         );
     }
 
-    public function category() {
+    public function category(Request $request) {
         $categories = Category::with(["events" => function($q) {
             $q->with("location");
         }])->find($request->id);
