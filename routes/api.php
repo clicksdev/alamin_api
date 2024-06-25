@@ -14,6 +14,7 @@ use App\Http\Controllers\User\HomeController;
 // Categories endpoints
 Route::get("/categories/get", [CategoriesController::class, 'get']);
 Route::post("/categories/search", [CategoriesController::class, 'search']);
+Route::get("/categories/category", [CategoriesController::class, 'category']);
 
 // Locations endpoints
 Route::get("/locations/get", [LocationsController::class, 'get']);

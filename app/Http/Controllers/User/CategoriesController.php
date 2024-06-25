@@ -29,6 +29,36 @@ class CategoriesController extends Controller
         );
     }
 
+    public function category() {
+        $categories = Category::with(["events" => function($q) {
+            $q->with("location");
+        }])->find($request->id);
+
+        if ($categories)
+            return $this->handleResponse(
+                true,
+                "عملية ناجحة",
+                [],
+
+                    $categories
+                ,
+                [
+                    "يبدا مسار الصورة من بعد الدومين مباشرا"
+                ]
+            );
+
+            return $this->handleResponse(
+                false,
+                "عملية فاشلة",
+                ["Id Not Valid"],
+                []
+                ,
+                [
+                    "يبدا مسار الصورة من بعد الدومين مباشرا"
+                ]
+            );
+    }
+
     public function search(Request $request) {
         $search = $request->search ? $request->search : '';
         $categories = Category::where('title', 'like', '%' . $search . '%')
