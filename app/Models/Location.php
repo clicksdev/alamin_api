@@ -47,6 +47,7 @@ class Location extends Model
 
         // Get all events for the location
         $events = $this->events()->with(['event_categories'])->get();
+        $restaurants = $this->restaurants()->get();
 
         // Initialize an array to store categories with events
         $categoriesWithEvents = [];
@@ -68,6 +69,7 @@ class Location extends Model
 
         // Format the result
         $locationDetails['categories'] = array_values($categoriesWithEvents);
+        $locationDetails['services'] = $restaurants;
 
         return $locationDetails;
     }
