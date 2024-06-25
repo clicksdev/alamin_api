@@ -35,6 +35,7 @@ Route::post("/sponsors/search-other", [SponsorController::class, 'searchOther'])
 // Restaurant endpoints
 Route::get("/restaurants/get", [RestaurantController::class, 'get']);
 Route::post("/restaurants/search", [RestaurantController::class, 'search']);
+Route::get("/restaurants/service", [RestaurantController::class, 'service']);
 
 // ads endpoints
 Route::get("/ads/get", [AdController::class, 'get']);

@@ -26,6 +26,25 @@ class RestaurantController extends Controller
             ]
         );
     }
+    public function service(Request $request) {
+        $events = Restaurant::latest()
+                       ->with(['relatedEvants' => function($query) {
+                        $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                              ->where('date_to', '>=', now()); // Ensure active events only
+                        }, "location"])
+                       ->find($request->id);
+
+        return $this->handleResponse(
+            true,
+            "عملية ناجحة",
+            [],
+                $events
+            ,
+            [
+                "يبدا مسار الصورة من بعد الدومين مباشرا"
+            ]
+        );
+    }
 
     public function search(Request $request) {
         $search = $request->search ? $request->search : '';
