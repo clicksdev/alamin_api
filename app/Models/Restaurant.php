@@ -36,8 +36,15 @@ class Restaurant extends Model
         return $this->belongsTo(Location::class);
     }
 
-    public function relatedEvants()
+    public function relatedEvents()
     {
-        return $this->hasManyThrough(Event::class, Location::class, 'id', 'location_id', 'location_id', 'id');
+        return $this->hasManyThrough(
+            Event::class,
+            Location::class,
+            'id',
+            'location_id',
+            'location_id',
+            'id'
+        )->select('events.*'); // Select all columns from events to avoid ambiguity
     }
 }
