@@ -12,7 +12,9 @@ class CategoriesController extends Controller
     use HandleResponseTrait;
 
     public function get() {
-        $categories = Category::get();
+        $categories = Category::with(["events" => function($q) {
+            $q->with("location");
+        }])->get();
 
         return $this->handleResponse(
             true,
