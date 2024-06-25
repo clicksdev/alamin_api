@@ -38,7 +38,7 @@ class Restaurant extends Model
 
     public function relatedEvants()
     {
-        $evants = App\Models\Event::where("location_id", $this->location_id)->get();
+        $evants = Event::where("location_id", $this->location_id)->get();
         return $evants;
     }
 
