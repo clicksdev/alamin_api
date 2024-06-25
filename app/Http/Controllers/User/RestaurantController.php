@@ -32,7 +32,7 @@ class RestaurantController extends Controller
                        ->with(["location"])
                        ->find($request->id);
         if($service) {
-            $related = Evant::where("location_id", $serv->location_id)->get();
+            $related = Event::where("location_id", $serv->location_id)->get();
             $service->relatedEvants = $related;
         }
         return $this->handleResponse(
