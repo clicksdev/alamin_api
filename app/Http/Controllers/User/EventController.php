@@ -60,6 +60,8 @@ class EventController extends Controller
                        ->select("id", "title", "sub_title", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                        ->where('title', 'like', '%' . $search . '%')
                        ->orWhere('sub_title', 'like', '%' . $search . '%')
+                       ->orWhere('sub_title_ar', 'like', '%' . $search . '%')
+                       ->orWhere('title_ar', 'like', '%' . $search . '%')
                        ->with(['relatedEvents' => function($query) {
                            $query->select("id", "title", "sub_title", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                                  ->where('id', '!=', $query->getModel()->id);
