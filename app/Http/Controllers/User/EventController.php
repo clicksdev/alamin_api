@@ -57,7 +57,7 @@ class EventController extends Controller
     public function search(Request $request) {
         $search = $request->search ? $request->search : '';
         $events = Event::latest()
-                       ->select("id", "title", "sub_title", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                       ->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                        ->where('title', 'like', '%' . $search . '%')
                        ->orWhere('sub_title', 'like', '%' . $search . '%')
                        ->orWhere('sub_title_ar', 'like', '%' . $search . '%')
