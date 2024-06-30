@@ -23,11 +23,11 @@ class EventController extends Controller
                        ->get();
 
         foreach ($events as $event) {
-            $event->date_from_formatted = Carbon::parse($event->date_from)->format('h:i A');
-            $event->date_to_formatted = Carbon::parse($event->date_to)->format('h:i A');
+            $event->time_from = Carbon::parse($event->date_from)->format('h:i A');
+            $event->time_to = Carbon::parse($event->date_to)->format('h:i A');
             foreach ($event->relatedEvents as $relatedEvent) {
-                $relatedEvent->date_from_formatted = Carbon::parse($relatedEvent->date_from)->format('h:i A');
-                $relatedEvent->date_to_formatted = Carbon::parse($relatedEvent->date_to)->format('h:i A');
+                $relatedEvent->time_from = Carbon::parse($relatedEvent->date_from)->format('h:i A');
+                $relatedEvent->time_to = Carbon::parse($relatedEvent->date_to)->format('h:i A');
             }
         }
 
@@ -52,11 +52,11 @@ class EventController extends Controller
                       ->find($request->id);
 
         if ($event) {
-            $event->date_from_formatted = Carbon::parse($event->date_from)->format('h:i A');
-            $event->date_to_formatted = Carbon::parse($event->date_to)->format('h:i A');
+            $event->time_from = Carbon::parse($event->date_from)->format('h:i A');
+            $event->time_to = Carbon::parse($event->date_to)->format('h:i A');
             foreach ($event->relatedEvents as $relatedEvent) {
-                $relatedEvent->date_from_formatted = Carbon::parse($relatedEvent->date_from)->format('h:i A');
-                $relatedEvent->date_to_formatted = Carbon::parse($relatedEvent->date_to)->format('h:i A');
+                $relatedEvent->time_from = Carbon::parse($relatedEvent->date_from)->format('h:i A');
+                $relatedEvent->time_to = Carbon::parse($relatedEvent->date_to)->format('h:i A');
             }
         }
 
@@ -86,11 +86,11 @@ class EventController extends Controller
                        ->get();
 
         foreach ($events as $event) {
-            $event->date_from_formatted = Carbon::parse($event->date_from)->format('h:i A');
-            $event->date_to_formatted = Carbon::parse($event->date_to)->format('h:i A');
+            $event->time_from = Carbon::parse($event->date_from)->format('h:i A');
+            $event->time_to = Carbon::parse($event->date_to)->format('h:i A');
             foreach ($event->relatedEvents as $relatedEvent) {
-                $relatedEvent->date_from_formatted = Carbon::parse($relatedEvent->date_from)->format('h:i A');
-                $relatedEvent->date_to_formatted = Carbon::parse($relatedEvent->date_to)->format('h:i A');
+                $relatedEvent->time_from = Carbon::parse($relatedEvent->date_from)->format('h:i A');
+                $relatedEvent->time_to = Carbon::parse($relatedEvent->date_to)->format('h:i A');
             }
         }
 
@@ -116,12 +116,12 @@ class EventController extends Controller
                     }])->find($item->item_id) : Ad::find($item->item_id);
                 if ($itemObj) {
                     $itemObj->type = $item->type == 1 ? "Event" : "Ad";
-                    $itemObj->date_from_formatted = $itemObj->date_from ? Carbon::parse($itemObj->date_from)->format('h:i A') : null;
-                    $itemObj->date_to_formatted = $itemObj->date_to ? Carbon::parse($itemObj->date_to)->format('h:i A') : null;
+                    $itemObj->time_from = $itemObj->date_from ? Carbon::parse($itemObj->date_from)->format('h:i A') : null;
+                    $itemObj->time_to = $itemObj->date_to ? Carbon::parse($itemObj->date_to)->format('h:i A') : null;
                     if ($itemObj->type == "Event") {
                         foreach ($itemObj->relatedEvents as $relatedEvent) {
-                            $relatedEvent->date_from_formatted = Carbon::parse($relatedEvent->date_from)->format('h:i A');
-                            $relatedEvent->date_to_formatted = Carbon::parse($relatedEvent->date_to)->format('h:i A');
+                            $relatedEvent->time_from = Carbon::parse($relatedEvent->date_from)->format('h:i A');
+                            $relatedEvent->time_to = Carbon::parse($relatedEvent->date_to)->format('h:i A');
                         }
                     }
                     $item->item = $itemObj;
