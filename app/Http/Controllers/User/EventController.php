@@ -7,6 +7,7 @@ use App\HandleResponseTrait;
 use App\Models\Event;
 use App\Models\Topevent;
 use App\Models\Ad;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -16,17 +17,25 @@ class EventController extends Controller
         $events = Event::latest()
                        ->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                        ->with(['relatedEvents' => function($query) {
-                        $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                              ->where('date_to', '>=', now()); // Ensure active events only
+                            $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                                  ->where('date_to', '>=', now()); // Ensure active events only
                         }, "location"])
                        ->get();
+
+        foreach ($events as $event) {
+            $event->date_from_formatted = Carbon::parse($event->date_from)->format('h:i A');
+            $event->date_to_formatted = Carbon::parse($event->date_to)->format('h:i A');
+            foreach ($event->relatedEvents as $relatedEvent) {
+                $relatedEvent->date_from_formatted = Carbon::parse($relatedEvent->date_from)->format('h:i A');
+                $relatedEvent->date_to_formatted = Carbon::parse($relatedEvent->date_to)->format('h:i A');
+            }
+        }
 
         return $this->handleResponse(
             true,
             "عملية ناجحة",
             [],
-                $events
-            ,
+            $events,
             [
                 "يبدا مسار الصورة من بعد الدومين مباشرا"
             ]
@@ -34,20 +43,28 @@ class EventController extends Controller
     }
 
     public function event(Request $request) {
-        $events = Event::latest()
-                       ->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                       ->with(['relatedEvents' => function($query) {
-                        $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                              ->where('date_to', '>=', now()); // Ensure active events only
+        $event = Event::latest()
+                      ->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                      ->with(['relatedEvents' => function($query) {
+                            $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                                  ->where('date_to', '>=', now()); // Ensure active events only
                         }, "location"])
-                       ->find($request->id);
+                      ->find($request->id);
+
+        if ($event) {
+            $event->date_from_formatted = Carbon::parse($event->date_from)->format('h:i A');
+            $event->date_to_formatted = Carbon::parse($event->date_to)->format('h:i A');
+            foreach ($event->relatedEvents as $relatedEvent) {
+                $relatedEvent->date_from_formatted = Carbon::parse($relatedEvent->date_from)->format('h:i A');
+                $relatedEvent->date_to_formatted = Carbon::parse($relatedEvent->date_to)->format('h:i A');
+            }
+        }
 
         return $this->handleResponse(
             true,
             "عملية ناجحة",
             [],
-                $events
-            ,
+            $event,
             [
                 "يبدا مسار الصورة من بعد الدومين مباشرا"
             ]
@@ -68,12 +85,20 @@ class EventController extends Controller
                        }, "location"])
                        ->get();
 
+        foreach ($events as $event) {
+            $event->date_from_formatted = Carbon::parse($event->date_from)->format('h:i A');
+            $event->date_to_formatted = Carbon::parse($event->date_to)->format('h:i A');
+            foreach ($event->relatedEvents as $relatedEvent) {
+                $relatedEvent->date_from_formatted = Carbon::parse($relatedEvent->date_from)->format('h:i A');
+                $relatedEvent->date_to_formatted = Carbon::parse($relatedEvent->date_to)->format('h:i A');
+            }
+        }
+
         return $this->handleResponse(
             true,
             "عملية ناجحة",
             [],
-                $events
-            ,
+            $events,
             [
                 "search" => "البحث بالعنوان او العنوان الفرعي"
             ]
@@ -85,20 +110,30 @@ class EventController extends Controller
 
         if ($events->count() > 0) {
             foreach ($events as $item) {
-                $itemObj = $item->type == 1 ? Event::with("location")->find($item->item_id) : Ad::find($item->item_id);
+                $itemObj = $item->type == 1 ? Event::with(["location", 'relatedEvents' => function($query) {
+                    $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                          ->where('date_to', '>=', now()); // Ensure active events only
+                    }])->find($item->item_id) : Ad::find($item->item_id);
                 if ($itemObj) {
                     $itemObj->type = $item->type == 1 ? "Event" : "Ad";
+                    $itemObj->date_from_formatted = $itemObj->date_from ? Carbon::parse($itemObj->date_from)->format('h:i A') : null;
+                    $itemObj->date_to_formatted = $itemObj->date_to ? Carbon::parse($itemObj->date_to)->format('h:i A') : null;
+                    if ($itemObj->type == "Event") {
+                        foreach ($itemObj->relatedEvents as $relatedEvent) {
+                            $relatedEvent->date_from_formatted = Carbon::parse($relatedEvent->date_from)->format('h:i A');
+                            $relatedEvent->date_to_formatted = Carbon::parse($relatedEvent->date_to)->format('h:i A');
+                        }
+                    }
                     $item->item = $itemObj;
                 }
             }
         }
+
         return $this->handleResponse(
             true,
             "عملية ناجحة",
             [],
-
-                $events
-            ,
+            $events,
             [
                 "type" => [
                     1 => "Event",
