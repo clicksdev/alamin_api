@@ -50,7 +50,6 @@ class HomeController extends Controller
                                 $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                                     ->where('date_to', '>=', now()); // Ensure active events only
                             }, "location"])
-                            ->whereDate('date_from', '>', $tomorrow)
                             ->whereDate('date_from', '<=', $today)
                             ->whereDate('date_to', '>=', $today)
                             ->take(6)->get();
@@ -61,7 +60,6 @@ class HomeController extends Controller
                                     $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                                         ->where('date_to', '>=', now()); // Ensure active events only
                                 }, "location"])
-                                ->whereDate('date_from', '>', $tomorrow)
                                 ->whereDate('date_from', '<=', $tomorrow)
                                 ->whereDate('date_to', '>=', $tomorrow)
                                 ->take(6)->get();
