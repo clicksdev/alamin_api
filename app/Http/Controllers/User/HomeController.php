@@ -45,17 +45,34 @@ class HomeController extends Controller
         $amazing_sponsors = Sponsor::where("isTop", true)->get();
 
         // Get today's events
-        $todayEvents = Event::with(["event_categories", "location"])->whereDate('date_from', '<=', $today)
+        $todayEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                            ->with(["event_categories", 'relatedEvents' => function($query) {
+                                $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                                    ->where('date_to', '>=', now()); // Ensure active events only
+                            }, "location"])
+                            ->whereDate('date_from', '>', $tomorrow)
+                            ->whereDate('date_from', '<=', $today)
                             ->whereDate('date_to', '>=', $today)
                             ->take(6)->get();
 
         // Get tomorrow's events
-        $tomorrowEvents = Event::with(["event_categories", "location"])->whereDate('date_from', '<=', $tomorrow)
-                               ->whereDate('date_to', '>=', $tomorrow)
-                               ->take(6)->get();
+        $tomorrowEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                                ->with(["event_categories", 'relatedEvents' => function($query) {
+                                    $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                                        ->where('date_to', '>=', now()); // Ensure active events only
+                                }, "location"])
+                                ->whereDate('date_from', '>', $tomorrow)
+                                ->whereDate('date_from', '<=', $tomorrow)
+                                ->whereDate('date_to', '>=', $tomorrow)
+                                ->take(6)->get();
 
         // Get upcoming events after tomorrow
-        $upcomingEvents = Event::with(["event_categories", "location"])->whereDate('date_from', '>', $tomorrow)
+        $upcomingEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                                ->with(["event_categories", 'relatedEvents' => function($query) {
+                                    $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                                        ->where('date_to', '>=', now()); // Ensure active events only
+                                }, "location"])
+                                ->whereDate('date_from', '>', $tomorrow)
                                ->take(6)->get();
         $main_restaurants = (isset($settingsArray["main_restaurants"]) && $settingsArray["main_restaurants"]["value"]) ? Restaurant::whereIn("id", json_decode($settingsArray["main_restaurants"]["value"]))->get() : null;
         $all_sponsors = Sponsor::where("isTop", false)->get();
