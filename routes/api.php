@@ -47,4 +47,5 @@ Route::post("/subscribe", [SubEmailController::class, 'subscribe']);
 
 // home endpoints
 Route::get("/get-home", [HomeController::class, 'getHomeData']);
+Route::get("/events/get-schedule", [HomeController::class, 'getEventsScedual']);
 

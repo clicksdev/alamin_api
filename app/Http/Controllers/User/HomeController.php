@@ -100,4 +100,57 @@ class HomeController extends Controller
         );
 
     }
+    public function getEventsScedual() {
+        $today = Carbon::today();
+        $tomorrow = Carbon::tomorrow();
+        $dayAfterTomorrow = Carbon::tomorrow()->addDay();
+
+        $settings = Setting::all();
+
+        // Get today's events
+        $todayEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                            ->with(["event_categories", 'relatedEvents' => function($query) {
+                                $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                                    ->where('date_to', '>=', now()); // Ensure active events only
+                            }, "location"])
+                            ->whereDate('date_from', '<=', $today)
+                            ->whereDate('date_to', '>=', $today)
+                            ->take(6)->get();
+
+        // Get tomorrow's events
+        $tomorrowEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                                ->with(["event_categories", 'relatedEvents' => function($query) {
+                                    $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                                        ->where('date_to', '>=', now()); // Ensure active events only
+                                }, "location"])
+                                ->whereDate('date_from', '<=', $tomorrow)
+                                ->whereDate('date_to', '>=', $tomorrow)
+                                ->take(6)->get();
+
+        // Get upcoming events after tomorrow
+        $upcomingEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                                ->with(["event_categories", 'relatedEvents' => function($query) {
+                                    $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                                        ->where('date_to', '>=', now()); // Ensure active events only
+                                }, "location"])
+                                ->whereDate('date_from', '>', $tomorrow)
+                               ->take(6)->get();
+        $main_restaurants = (isset($settingsArray["main_restaurants"]) && $settingsArray["main_restaurants"]["value"]) ? Restaurant::whereIn("id", json_decode($settingsArray["main_restaurants"]["value"]))->get() : null;
+
+        return $this->handleResponse(
+            true,
+            "عملية ناجحة",
+            [],
+            [
+                'today_events' => $todayEvents,
+                'tomorrow_events' => $tomorrowEvents,
+                'upcoming_events' => $upcomingEvents,
+                'main_restaurants' => $main_restaurants,
+            ],
+            [
+                "يبدا مسار الصورة من بعد الدومين مباشرا"
+            ]
+        );
+
+    }
 }
