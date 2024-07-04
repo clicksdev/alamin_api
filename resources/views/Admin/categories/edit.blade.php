@@ -94,11 +94,11 @@ createApp({
         return {
             id: '{{ $category->id }}',
             title: '{{ $category->title }}',
-            description: '{{ $category->description }}',
+            description: @json($category->description),
             svg_icon: null,
             svg_icon_path: '{{ $category->svg_icon }}',
             title_ar: '{{ $category->title_ar }}',
-            description_ar: '{{ $category->description_ar }}',
+            description_ar: @json($category->description_ar),
             thumbnail: null,
             thumbnail_path: '{{ $category->thumbnail_path }}',
             cover_path: '{{ $category->cover_path }}',
