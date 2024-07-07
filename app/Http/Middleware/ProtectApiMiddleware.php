@@ -26,7 +26,7 @@ class ProtectApiMiddleware
             "elalameinfestival.com",
         ];
 
-        if ((!$apiKey || $apiKey !== $expectedApiKey) && !in_array($host, $allowedDomains)) {
+        if (!in_array($host, $allowedDomains)) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
