@@ -12,7 +12,7 @@ class SponsorController extends Controller
     use HandleResponseTrait;
 
     public function getTop() {
-        $Sponsor = Sponsor::where("isTop", true)->latest()->get();
+        $Sponsor = Sponsor::where("isTop", 1)->orWhere("isTop", 2)->latest()->get();
 
         return $this->handleResponse(
             true,
@@ -29,7 +29,7 @@ class SponsorController extends Controller
 
     public function searchTop(Request $request) {
         $search = $request->search ? $request->search : '';
-        $Sponsor = Sponsor::where("isTop", true)->latest()->where('name', 'like', '%' . $search . '%')->get();
+        $Sponsor = Sponsor::where("isTop", 1)->latest()->where('name', 'like', '%' . $search . '%')->get();
 
         return $this->handleResponse(
             true,
@@ -61,7 +61,7 @@ class SponsorController extends Controller
 
     public function searchOther(Request $request) {
         $search = $request->search ? $request->search : '';
-        $Sponsor = Sponsor::where("isTop", false)->latest()->where('name', 'like', '%' . $search . '%')->get();
+        $Sponsor = Sponsor::where("isTop", 0)->latest()->where('name', 'like', '%' . $search . '%')->get();
 
         return $this->handleResponse(
             true,

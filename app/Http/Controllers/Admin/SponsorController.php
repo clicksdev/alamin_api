@@ -196,7 +196,7 @@ class SponsorController extends Controller
     public function toggleTop($id) {
         $sponsor = Sponsor::find($id);
         if ($sponsor) {
-            $sponsor->isTop = !$sponsor->isTop;
+            $sponsor->isTop = $sponsor->isTop == 1 ? 2 : ($sponsor->isTop == 2 ? 0 : 1);
             $sponsor->save();
         }
 
