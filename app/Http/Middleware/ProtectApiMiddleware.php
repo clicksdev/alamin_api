@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Log;
 
 class ProtectApiMiddleware
 {
@@ -17,8 +18,15 @@ class ProtectApiMiddleware
     {
         $apiKey = $request->header('API-Key');
         $expectedApiKey = env('API_KEY');
+        $host = $request->getHost();
 
-        if (!$apiKey || $apiKey !== $expectedApiKey) {
+        // List of allowed domains or subdomains
+        $allowedDomains = [
+            "demo.elalameinfestival.com",
+            "elalameinfestival.com",
+        ];
+
+        if ((!$apiKey || $apiKey !== $expectedApiKey) && !in_array($host, $allowedDomains)) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
