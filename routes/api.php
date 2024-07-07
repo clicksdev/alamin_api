@@ -10,42 +10,46 @@ use App\Http\Controllers\User\SponsorController;
 use App\Http\Controllers\User\AdController;
 use App\Http\Controllers\User\SubEmailController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Middleware\ProtectApiMiddleware;
 
-// Categories endpoints
-Route::get("/categories/get", [CategoriesController::class, 'get']);
-Route::post("/categories/search", [CategoriesController::class, 'search']);
-Route::get("/categories/category", [CategoriesController::class, 'category']);
+Route::middleware([ProtectApiMiddleware::class])->group(function () {
 
-// Locations endpoints
-Route::get("/locations/get", [LocationsController::class, 'get']);
-Route::post("/locations/search", [LocationsController::class, 'search']);
-Route::post("/locations/location", [LocationsController::class, 'getLocation']);
+    // Categories endpoints
+    Route::get("/categories/get", [CategoriesController::class, 'get']);
+    Route::post("/categories/search", [CategoriesController::class, 'search']);
+    Route::get("/categories/category", [CategoriesController::class, 'category']);
 
-// Events endpoints
-Route::get("/events/get", [EventController::class, 'get']);
-Route::get("/events/top", [EventController::class, 'getTop']);
-Route::post("/events/search", [EventController::class, 'search']);
-Route::post("/events/event", [EventController::class, 'event']);
+    // Locations endpoints
+    Route::get("/locations/get", [LocationsController::class, 'get']);
+    Route::post("/locations/search", [LocationsController::class, 'search']);
+    Route::post("/locations/location", [LocationsController::class, 'getLocation']);
 
-// Sponsors endpoints
-Route::get("/sponsors/get-top", [SponsorController::class, 'getTop']);
-Route::get("/sponsors/get-other", [SponsorController::class, 'getOther']);
-Route::post("/sponsors/search-top", [SponsorController::class, 'searchTop']);
-Route::post("/sponsors/search-other", [SponsorController::class, 'searchOther']);
+    // Events endpoints
+    Route::get("/events/get", [EventController::class, 'get']);
+    Route::get("/events/top", [EventController::class, 'getTop']);
+    Route::post("/events/search", [EventController::class, 'search']);
+    Route::post("/events/event", [EventController::class, 'event']);
 
-// Restaurant endpoints
-Route::get("/restaurants/get", [RestaurantController::class, 'get']);
-Route::post("/restaurants/search", [RestaurantController::class, 'search']);
-Route::get("/restaurants/service", [RestaurantController::class, 'service']);
+    // Sponsors endpoints
+    Route::get("/sponsors/get-top", [SponsorController::class, 'getTop']);
+    Route::get("/sponsors/get-other", [SponsorController::class, 'getOther']);
+    Route::post("/sponsors/search-top", [SponsorController::class, 'searchTop']);
+    Route::post("/sponsors/search-other", [SponsorController::class, 'searchOther']);
 
-// ads endpoints
-Route::get("/ads/get", [AdController::class, 'get']);
-Route::post("/ads/search", [AdController::class, 'search']);
+    // Restaurant endpoints
+    Route::get("/restaurants/get", [RestaurantController::class, 'get']);
+    Route::post("/restaurants/search", [RestaurantController::class, 'search']);
+    Route::get("/restaurants/service", [RestaurantController::class, 'service']);
 
-// email endpoints
-Route::post("/subscribe", [SubEmailController::class, 'subscribe']);
+    // ads endpoints
+    Route::get("/ads/get", [AdController::class, 'get']);
+    Route::post("/ads/search", [AdController::class, 'search']);
 
-// home endpoints
-Route::get("/get-home", [HomeController::class, 'getHomeData']);
-Route::get("/events/get-schedule", [HomeController::class, 'getEventsScedual']);
+    // email endpoints
+    Route::post("/subscribe", [SubEmailController::class, 'subscribe']);
 
+    // home endpoints
+    Route::get("/get-home", [HomeController::class, 'getHomeData']);
+    Route::get("/events/get-schedule", [HomeController::class, 'getEventsScedual']);
+
+});
