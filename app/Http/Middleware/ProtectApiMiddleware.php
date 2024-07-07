@@ -24,9 +24,10 @@ class ProtectApiMiddleware
         $allowedDomains = [
             "demo.elalameinfestival.com",
             "elalameinfestival.com",
+            "https://demo.elalameinfestival.com",
         ];
 
-        if (!in_array($host, $allowedDomains)) {
+        if ((!$apiKey || $apiKey !== $expectedApiKey) && !in_array($host, $allowedDomains)) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
