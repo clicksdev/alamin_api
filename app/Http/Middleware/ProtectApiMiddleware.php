@@ -16,20 +16,20 @@ class ProtectApiMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // $apiKey = $request->header('API-Key');
-        // $expectedApiKey = env('API_KEY');
-        // $host = $request->getHost();
+        $apiKey = $request->header('API-Key');
+        $expectedApiKey = env('API_KEY');
+        $host = $request->getHost();
 
-        // // List of allowed domains or subdomains
-        // $allowedDomains = [
-        //     "demo.elalameinfestival.com",
-        //     "elalameinfestival.com",
-        //     "https://demo.elalameinfestival.com",
-        // ];
+        // List of allowed domains or subdomains
+        $allowedDomains = [
+            "demo.elalameinfestival.com",
+            "elalameinfestival.com",
+            "https://demo.elalameinfestival.com",
+        ];
 
-        // if ((!$apiKey || $apiKey !== $expectedApiKey) && !in_array($host, $allowedDomains)) {
-        //     return response()->json(['message' => 'Unauthorized'], 401);
-        // }
+        if ((!$apiKey || $apiKey !== $expectedApiKey) && !in_array($host, $allowedDomains)) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
 
         return $next($request);
     }
