@@ -42,7 +42,7 @@ class HomeController extends Controller
         $main_cat = (isset($settingsArray["main_cat"]) && $settingsArray["main_cat"]["value"]) ? Category::with(["events" => function ($q) {
             $q->latest()->with("location");
         }])->find($settingsArray["main_cat"]["value"]) : null;
-        $amazing_sponsors = Sponsor::where("isTop", true)->get();
+        $amazing_sponsors = Sponsor::where("isTop", 1)->orWhere("isTop", 2)->get();
 
         // Get today's events
         $todayEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
