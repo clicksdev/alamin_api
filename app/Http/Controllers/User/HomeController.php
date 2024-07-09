@@ -18,8 +18,8 @@ class HomeController extends Controller
 
     public function getHomeData() {
         $today = Carbon::today();
-        $tomorrow = $today->addDay();
-        $dayAfterTomorrow = $tomorrow->addDay();
+        $tomorrow = $today->copy()->addDay();
+        $dayAfterTomorrow = $tomorrow->copy()->addDay();
 
         $settings = Setting::all();
 
