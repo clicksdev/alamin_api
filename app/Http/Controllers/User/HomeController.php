@@ -51,7 +51,6 @@ class HomeController extends Controller
                                     ->where('date_to', '>=', now()); // Ensure active events only
                             }, "location"])
                             ->whereDate('date_from', '<=', $today)
-                            ->whereDate('date_to', '>=', $today)
                             ->take(6)->get();
 
         // Get tomorrow's events
@@ -61,7 +60,6 @@ class HomeController extends Controller
                                         ->where('date_to', '>=', now()); // Ensure active events only
                                 }, "location"])
                                 ->whereDate('date_from', '<=', $tomorrow)
-                                ->whereDate('date_to', '>=', $tomorrow)
                                 ->take(6)->get();
 
                                 // Get upcoming events after tomorrow
@@ -71,7 +69,6 @@ class HomeController extends Controller
                                     ->where('date_to', '>=', now()); // Ensure active events only
                                 }, "location"])
                                 ->whereDate('date_from', '<=', $dayAfterTomorrow)
-                                ->whereDate('date_to', '>=', $dayAfterTomorrow)
                                ->take(6)->get();
 
         $main_restaurants = (isset($settingsArray["main_restaurants"]) && $settingsArray["main_restaurants"]["value"]) ? Restaurant::whereIn("id", json_decode($settingsArray["main_restaurants"]["value"]))->get() : null;
