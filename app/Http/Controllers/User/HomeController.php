@@ -116,7 +116,16 @@ class HomeController extends Controller
                             ->whereDate('date_from', '<=', $today)
                             ->whereDate('date_to', '>=', $today)
                             ->take(6)->get();
-
+        foreach ($todayEvents as $event) {
+            if ($event) {
+                $event->time_from = Carbon::parse($event->date_from)->format('h:i A');
+                $event->time_to = Carbon::parse($event->date_to)->format('h:i A');
+                foreach ($event->relatedEvents as $relatedEvent) {
+                    $relatedEvent->time_from = Carbon::parse($relatedEvent->date_from)->format('h:i A');
+                    $relatedEvent->time_to = Carbon::parse($relatedEvent->date_to)->format('h:i A');
+                }
+            }
+        }
         // Get tomorrow's events
         $tomorrowEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                                 ->with(["event_categories", 'relatedEvents' => function($query) {
@@ -126,17 +135,36 @@ class HomeController extends Controller
                                 ->whereDate('date_from', '<=', $tomorrow)
                                 ->whereDate('date_to', '>=', $tomorrow)
                                 ->take(6)->get();
-
+        foreach ($tomorrowEvents as $event) {
+            if ($event) {
+                $event->time_from = Carbon::parse($event->date_from)->format('h:i A');
+                $event->time_to = Carbon::parse($event->date_to)->format('h:i A');
+                foreach ($event->relatedEvents as $relatedEvent) {
+                    $relatedEvent->time_from = Carbon::parse($relatedEvent->date_from)->format('h:i A');
+                    $relatedEvent->time_to = Carbon::parse($relatedEvent->date_to)->format('h:i A');
+                }
+            }
+        }
         // Get upcoming events after tomorrow
         $upcomingEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                                ->with(["event_categories", 'relatedEvents' => function($query) {
-                                    $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                                        ->where('date_to', '>=', now()); // Ensure active events only
-                                }, "location"])
-                                ->whereDate('date_from', '>', $tomorrow)
-                               ->take(6)->get();
+        ->with(["event_categories", 'relatedEvents' => function($query) {
+            $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+            ->where('date_to', '>=', now()); // Ensure active events only
+        }, "location"])
+        ->whereDate('date_from', '>', $tomorrow)
+        ->take(6)->get();
         $main_restaurants = (isset($settingsArray["main_restaurants"]) && $settingsArray["main_restaurants"]["value"]) ? Restaurant::whereIn("id", json_decode($settingsArray["main_restaurants"]["value"]))->get() : null;
 
+        foreach ($upcomingEvents as $event) {
+            if ($event) {
+                $event->time_from = Carbon::parse($event->date_from)->format('h:i A');
+                $event->time_to = Carbon::parse($event->date_to)->format('h:i A');
+                foreach ($event->relatedEvents as $relatedEvent) {
+                    $relatedEvent->time_from = Carbon::parse($relatedEvent->date_from)->format('h:i A');
+                    $relatedEvent->time_to = Carbon::parse($relatedEvent->date_to)->format('h:i A');
+                }
+            }
+        }
         return $this->handleResponse(
             true,
             "عملية ناجحة",
