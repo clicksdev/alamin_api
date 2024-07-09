@@ -18,8 +18,8 @@ class HomeController extends Controller
 
     public function getHomeData() {
         $today = Carbon::today();
-        $tomorrow = Carbon::tomorrow();
-        $dayAfterTomorrow = Carbon::tomorrow()->addDay();
+        $tomorrow = $today->addDay();
+        $dayAfterTomorrow = $tomorrow->addDay();
 
         $settings = Setting::all();
 
@@ -64,14 +64,16 @@ class HomeController extends Controller
                                 ->whereDate('date_to', '>=', $tomorrow)
                                 ->take(6)->get();
 
-        // Get upcoming events after tomorrow
+                                // Get upcoming events after tomorrow
         $upcomingEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                                 ->with(["event_categories", 'relatedEvents' => function($query) {
                                     $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                                        ->where('date_to', '>=', now()); // Ensure active events only
+                                    ->where('date_to', '>=', now()); // Ensure active events only
                                 }, "location"])
-                                ->whereDate('date_from', '>', $tomorrow)
+                                ->whereDate('date_from', '<=', $dayAfterTomorrow)
+                                ->whereDate('date_to', '>=', $dayAfterTomorrow)
                                ->take(6)->get();
+
         $main_restaurants = (isset($settingsArray["main_restaurants"]) && $settingsArray["main_restaurants"]["value"]) ? Restaurant::whereIn("id", json_decode($settingsArray["main_restaurants"]["value"]))->get() : null;
         $all_sponsors = Sponsor::where("isTop", false)->get();
 
