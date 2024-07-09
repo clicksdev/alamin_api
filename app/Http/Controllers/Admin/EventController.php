@@ -96,21 +96,36 @@ class EventController extends Controller
         $landscape = $this->saveImg($request->landscape, 'images/uploads/Events', "land" . time());
         $portrait = $this->saveImg($request->portrait, 'images/uploads/Events', "portrait" . time());
 
-        $event = Event::create([
-            "title" => $request->title,
-            "sub_title" => $request->sub_title,
-            "title_ar" => $request->title_ar,
-            "sub_title_ar" => $request->sub_title_ar,
-            "url" => $request->url ?? null,
-            "thumbnail" => '/images/uploads/Events/' . $thumbnail,
-            "cover" => '/images/uploads/Events/' . $cover,
-            "portrait" => '/images/uploads/Events/' . $portrait,
-            "landscape" => '/images/uploads/Events/' . $landscape,
-            "categories" => json_encode($request->categories),
-            "date_from" => $request->date_from ? Carbon::parse($request->date_from) : null,
-            "date_to" => $request->date_to ? Carbon::parse($request->date_to) : null,
-            "location_id" => $request->location_id,
-        ]);
+        if ($request->date_to && $request->date_from)
+            $event = Event::create([
+                "title" => $request->title,
+                "sub_title" => $request->sub_title,
+                "title_ar" => $request->title_ar,
+                "sub_title_ar" => $request->sub_title_ar,
+                "url" => $request->url ?? null,
+                "thumbnail" => '/images/uploads/Events/' . $thumbnail,
+                "cover" => '/images/uploads/Events/' . $cover,
+                "portrait" => '/images/uploads/Events/' . $portrait,
+                "landscape" => '/images/uploads/Events/' . $landscape,
+                "categories" => json_encode($request->categories),
+                "date_from" => $request->date_from,
+                "date_to" => $request->date_to,
+                "location_id" => $request->location_id,
+            ]);
+        else
+            $event = Event::create([
+                "title" => $request->title,
+                "sub_title" => $request->sub_title,
+                "title_ar" => $request->title_ar,
+                "sub_title_ar" => $request->sub_title_ar,
+                "url" => $request->url ?? null,
+                "thumbnail" => '/images/uploads/Events/' . $thumbnail,
+                "cover" => '/images/uploads/Events/' . $cover,
+                "portrait" => '/images/uploads/Events/' . $portrait,
+                "landscape" => '/images/uploads/Events/' . $landscape,
+                "categories" => json_encode($request->categories),
+                "location_id" => $request->location_id,
+            ]);
 
         $event->event_categories()->attach(json_decode($request->categories));
 
