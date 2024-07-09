@@ -107,8 +107,8 @@ class EventController extends Controller
             "portrait" => '/images/uploads/Events/' . $portrait,
             "landscape" => '/images/uploads/Events/' . $landscape,
             "categories" => json_encode($request->categories),
-            "date_from" => Carbon::parse($request->date_from),
-            "date_to" => Carbon::parse($request->date_to),
+            "date_from" => $request->date_from ? Carbon::parse($request->date_from) : null,
+            "date_to" => $request->date_to ? Carbon::parse($request->date_to) : null,
             "location_id" => $request->location_id,
         ]);
 
