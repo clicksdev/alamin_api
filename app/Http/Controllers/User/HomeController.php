@@ -17,9 +17,9 @@ class HomeController extends Controller
     use HandleResponseTrait;
 
     public function getHomeData() {
-        $today = Carbon::today();
-        $tomorrow = $today->copy()->addDay();
-        $dayAfterTomorrow = $tomorrow->copy()->addDay();
+        $today = Carbon::today()->startOfDay();  // Today at 00:00:00
+        $tomorrow = $today->copy()->addDay()->startOfDay();  // Tomorrow at 00:00:00
+        $dayAfterTomorrow = $tomorrow->copy()->addDay()->startOfDay();  // Day after tomorrow at 00:00:00
 
         $settings = Setting::all();
 
