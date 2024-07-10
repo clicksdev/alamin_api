@@ -206,8 +206,13 @@ class EventController extends Controller
         $event->title_ar = $request->title_ar;
         $event->sub_title_ar = $request->sub_title_ar;
         $event->url = $request->url ?? null;
-        $event->date_from = Carbon::parse($request->date_from);
-        $event->date_to = Carbon::parse($request->date_to);
+        if ($request->has('date_from') && !empty($request->date_from)) {
+            $event->date_from = Carbon::parse($request->date_from);
+        }
+
+        if ($request->has('date_to') && !empty($request->date_to)) {
+            $event->date_to = Carbon::parse($request->date_to);
+        }
         $event->location_id = $request->location_id;
         $event->categories = json_encode($request->categories);
         $event->event_categories()->detach();
