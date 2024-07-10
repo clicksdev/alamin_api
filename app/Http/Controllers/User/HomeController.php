@@ -51,7 +51,7 @@ class HomeController extends Controller
                                     ->where('date_to', '>=', now()); // Ensure active events only
                             }, "location"])
                             ->whereDate('date_from', '<=', $today)
-                            ->take(6)->get();
+                            ->get();
 
         // Get tomorrow's events
         $tomorrowEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
@@ -60,7 +60,7 @@ class HomeController extends Controller
                                         ->where('date_to', '>=', now()); // Ensure active events only
                                 }, "location"])
                                 ->whereDate('date_from', '<=', $tomorrow)
-                                ->take(6)->get();
+                                ->get();
 
                                 // Get upcoming events after tomorrow
         $upcomingEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
@@ -69,7 +69,7 @@ class HomeController extends Controller
                                     ->where('date_to', '>=', now()); // Ensure active events only
                                 }, "location"])
                                 ->whereDate('date_from', '<=', $dayAfterTomorrow)
-                               ->take(6)->get();
+                               ->get();
 
         $main_restaurants = (isset($settingsArray["main_restaurants"]) && $settingsArray["main_restaurants"]["value"]) ? Restaurant::whereIn("id", json_decode($settingsArray["main_restaurants"]["value"]))->get() : null;
         $all_sponsors = Sponsor::where("isTop", false)->get();
