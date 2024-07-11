@@ -13,7 +13,7 @@ class RestaurantController extends Controller
     use HandleResponseTrait;
 
     public function get() {
-        $categories = Restaurant::with("location")->latest()->get();
+        $categories = Restaurant::with("location")->get();
 
         return $this->handleResponse(
             true,
@@ -28,8 +28,7 @@ class RestaurantController extends Controller
         );
     }
     public function service(Request $request) {
-        $service = Restaurant::latest()
-                       ->with(["location"])
+        $service = Restaurant::with(["location"])
                        ->find($request->id);
         if($service) {
             $related = Event::where("location_id", $service->location_id)->get();
@@ -49,7 +48,7 @@ class RestaurantController extends Controller
 
     public function search(Request $request) {
         $search = $request->search ? $request->search : '';
-        $categories = Restaurant::with("location")->latest()->where('title', 'like', '%' . $search . '%')->get();
+        $categories = Restaurant::with("location")->where('title', 'like', '%' . $search . '%')->get();
 
         return $this->handleResponse(
             true,
