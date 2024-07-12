@@ -50,7 +50,7 @@ class Event extends Model
     // Define a scope to filter out expired events
     public function scopeActive($query)
     {
-        return $query->where('date_to', '>=', Carbon::now());
+        return $query->where('date_to', '>=', Carbon::now("GMT+3"));
     }
     // Mutators for dates to handle Carbon instances
     public function setDateFromAttribute($value)

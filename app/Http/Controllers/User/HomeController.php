@@ -48,7 +48,7 @@ class HomeController extends Controller
         $todayEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                             ->with(["event_categories", 'relatedEvents' => function($query) {
                                 $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                                    ->where('date_to', '>=', now()); // Ensure active events only
+                                    ->where('date_to', '>=', now("GMT+3")); // Ensure active events only
                             }, "location"])
                             ->whereDate('date_from', '<=', $today)
                             ->whereDate('date_to', '>=', $today)
@@ -58,7 +58,7 @@ class HomeController extends Controller
                             $tomorrowEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                             ->with(["event_categories", 'relatedEvents' => function($query) {
                                     $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                                    ->where('date_to', '>=', now()); // Ensure active events only
+                                    ->where('date_to', '>=', now("GMT+3")); // Ensure active events only
                                 }, "location"])
                                 ->whereDate('date_from', '<=', $tomorrow)
                                 ->whereDate('date_to', '>=', $tomorrow)
@@ -68,7 +68,7 @@ class HomeController extends Controller
         $upcomingEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                                 ->with(["event_categories", 'relatedEvents' => function($query) {
                                     $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                                    ->where('date_to', '>=', now()); // Ensure active events only
+                                    ->where('date_to', '>=', now("GMT+3")); // Ensure active events only
                                 }, "location"])
                                 ->whereDate('date_from', '<=', $dayAfterTomorrow)
                                 ->whereDate('date_to', '>=', $dayAfterTomorrow)
@@ -103,7 +103,7 @@ class HomeController extends Controller
 
     }
     public function getEventsScedual() {
-        $today = Carbon::today()->endOfDay();  // Today at 00:00:00
+        $today = Carbon::today("GMT+3")->endOfDay();  // Today at 00:00:00
         $tomorrow = $today->copy()->addDay()->endOfDay();  // Tomorrow at 00:00:00
         $dayAfterTomorrow = $tomorrow->copy()->addDay()->endOfDay();  // Day after tomorrow at 00:00:00
 
@@ -113,7 +113,7 @@ class HomeController extends Controller
         $todayEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                             ->with(["event_categories", 'relatedEvents' => function($query) {
                                 $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                                    ->where('date_to', '>=', now()); // Ensure active events only
+                                    ->where('date_to', '>=', now("GMT+3")); // Ensure active events only
                             }, "location"])
                             ->whereDate('date_from', '<=', $today)
                             ->whereDate('date_to', '>=', $today)
@@ -133,7 +133,7 @@ class HomeController extends Controller
         $tomorrowEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                                 ->with(["event_categories", 'relatedEvents' => function($query) {
                                     $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                                        ->where('date_to', '>=', now()); // Ensure active events only
+                                        ->where('date_to', '>=', now("GMT+3")); // Ensure active events only
                                 }, "location"])
                                 ->whereDate('date_from', '<=', $tomorrow)
                                 ->whereDate('date_to', '>=', $tomorrow)
@@ -153,7 +153,7 @@ class HomeController extends Controller
         $upcomingEvents = Event::select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                                 ->with(["event_categories", 'relatedEvents' => function($query) {
                                     $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                                    ->where('date_to', '>=', now()); // Ensure active events only
+                                    ->where('date_to', '>=', now("GMT+3")); // Ensure active events only
                                 }, "location"])
                                 ->whereDate('date_from', '<=', $dayAfterTomorrow)
                                 ->whereDate('date_to', '>=', $dayAfterTomorrow)

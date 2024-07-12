@@ -15,12 +15,12 @@ class EventController extends Controller
 
     public function get() {
         $events = Event::
-                        where('date_to', '>=', now())
+                        where('date_to', '>=', now("GMT+3"))
                         ->orderBy("date_from", "asc")
                        ->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                        ->with(['relatedEvents' => function($query) {
                             $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                                  ->where('date_to', '>=', now()); // Ensure active events only
+                                  ->where('date_to', '>=', now("GMT+3")); // Ensure active events only
                         }, "location"])
                        ->get();
 
@@ -49,7 +49,7 @@ class EventController extends Controller
                       ->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
                       ->with(['relatedEvents' => function($query) {
                             $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                                  ->where('date_to', '>=', now()); // Ensure active events only
+                                  ->where('date_to', '>=', now("GMT+3")); // Ensure active events only
                         }, "location"])
                       ->find($request->id);
 
@@ -114,7 +114,7 @@ class EventController extends Controller
             foreach ($events as $item) {
                 $itemObj = $item->type == 1 ? Event::with(["location", 'relatedEvents' => function($query) {
                     $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                          ->where('date_to', '>=', now()); // Ensure active events only
+                          ->where('date_to', '>=', now("GMT+3")); // Ensure active events only
                     }])->find($item->item_id) : Ad::find($item->item_id);
                 if ($itemObj) {
                     $itemObj->type = $item->type == 1 ? "Event" : "Ad";
