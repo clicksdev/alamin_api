@@ -17,10 +17,9 @@ class CategoriesController extends Controller
             $q->latest()
             ->with(['relatedEvents' => function($query) {
                   $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                        ->where('date_to', '>=', now()) // Ensure active events only
-                        ->orderBy("date_from", "asc");
+                        ->where('date_to', '>=', now());
               }, "location"]);
-        }])->get();
+        }])->get()->orderBy("date_from", "asc");
 
         foreach ($categories as $cat) {
             foreach ($cat->events as $event) {
