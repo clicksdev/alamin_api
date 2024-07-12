@@ -61,7 +61,7 @@ class HomeController extends Controller
                                     ->where('date_to', '>=', now()); // Ensure active events only
                                 }, "location"])
                                 ->whereDate('date_from', '<=', $tomorrow)
-                                ->whereDate('date_to', '>=', $today)
+                                ->whereDate('date_to', '>=', $tomorrow)
                                 ->get();
 
                                 // Get upcoming events after tomorrow
@@ -71,7 +71,7 @@ class HomeController extends Controller
                                     ->where('date_to', '>=', now()); // Ensure active events only
                                 }, "location"])
                                 ->whereDate('date_from', '<=', $dayAfterTomorrow)
-                                ->whereDate('date_to', '>=', $today)
+                                ->whereDate('date_to', '>=', $dayAfterTomorrow)
                                ->get();
 
         $main_restaurants = (isset($settingsArray["main_restaurants"]) && $settingsArray["main_restaurants"]["value"]) ? Restaurant::whereIn("id", json_decode($settingsArray["main_restaurants"]["value"]))->get() : null;
@@ -136,7 +136,7 @@ class HomeController extends Controller
                                         ->where('date_to', '>=', now()); // Ensure active events only
                                 }, "location"])
                                 ->whereDate('date_from', '<=', $tomorrow)
-                                ->whereDate('date_to', '>=', $today)
+                                ->whereDate('date_to', '>=', $tomorrow)
                                 ->get();
 
         foreach ($tomorrowEvents as $event) {
@@ -156,7 +156,7 @@ class HomeController extends Controller
                                     ->where('date_to', '>=', now()); // Ensure active events only
                                 }, "location"])
                                 ->whereDate('date_from', '<=', $dayAfterTomorrow)
-                                ->whereDate('date_to', '>=', $today)
+                                ->whereDate('date_to', '>=', $dayAfterTomorrow)
                                ->get();
         $main_restaurants = (isset($settingsArray["main_restaurants"]) && $settingsArray["main_restaurants"]["value"]) ? Restaurant::whereIn("id", json_decode($settingsArray["main_restaurants"]["value"]))->get() : null;
 
