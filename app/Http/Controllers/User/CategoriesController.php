@@ -14,15 +14,31 @@ class CategoriesController extends Controller
     use HandleResponseTrait;
 
     public function get() {
-        $categories = Category::with(["events" => function($q) {
+        $categories = Category::with(['events' => function($q) {
             $q->where('date_to', '>=', now("GMT+3"))
-            ->orderBy("date_from", "asc")
-            ->with(['relatedEvents' => function($query) {
-                  $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+              ->orderBy('date_from', 'asc')
+              ->with(['relatedEvents' => function($query) {
+                  $query->select('id', 'title', 'sub_title', 'title_ar', 'sub_title_ar', 'cover', 'thumbnail', 'landscape', 'portrait', 'url', 'date_from', 'date_to', 'location_id')
                         ->where('date_to', '>=', now("GMT+3"));
-              }, "location"]);
+              }, 'location']);
         }])->get();
 
+        foreach ($categories as $category) {
+            $upcomingEvents = $category->events;
+
+            $pastEvents = Event::where('category_id', $category->id)
+                                ->where('date_to', '<', now("GMT+3"))
+                                ->orderBy('date_from', 'asc')
+                                ->with(['relatedEvents' => function($query) {
+                                    $query->select('id', 'title', 'sub_title', 'title_ar', 'sub_title_ar', 'cover', 'thumbnail', 'landscape', 'portrait', 'url', 'date_from', 'date_to', 'location_id');
+                                }, 'location'])
+                                ->get();
+
+            // Merge upcoming and past events, with past events at the end
+            $category->events = $upcomingEvents->merge($pastEvents);
+        }
+
+        // Use $categories as needed, now with past events appended to the end of each category's events
 
         foreach ($categories as $cat) {
 
