@@ -44,6 +44,37 @@ class EventController extends Controller
         );
     }
 
+    public function getPast() {
+        $events = Event::
+                        where('date_to', '<', now("GMT+3"))
+                        ->orderBy('date_from', 'asc')
+                       ->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                       ->with(['relatedEvents' => function($query) {
+                            $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                                  ->where('date_to', '>=', now("GMT+3")); // Ensure active events only
+                        }, "location"])
+                       ->get();
+
+        foreach ($events as $event) {
+            $event->time_from = Carbon::parse($event->date_from)->format('h:i A');
+            $event->time_to = Carbon::parse($event->date_to)->format('h:i A');
+            foreach ($event->relatedEvents as $relatedEvent) {
+                $relatedEvent->time_from = Carbon::parse($relatedEvent->date_from)->format('h:i A');
+                $relatedEvent->time_to = Carbon::parse($relatedEvent->date_to)->format('h:i A');
+            }
+        }
+
+        return $this->handleResponse(
+            true,
+            "عملية ناجحة",
+            [],
+            $events,
+            [
+                "يبدا مسار الصورة من بعد الدومين مباشرا"
+            ]
+        );
+    }
+
     public function event(Request $request) {
         $event = Event::latest()
                       ->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")

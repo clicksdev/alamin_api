@@ -26,6 +26,7 @@ Route::middleware([ProtectApiMiddleware::class])->group(function () {
 
     // Events endpoints
     Route::get("/events/get", [EventController::class, 'get']);
+    Route::get("/events/getPast", [EventController::class, 'getPast']);
     Route::get("/events/top", [EventController::class, 'getTop']);
     Route::post("/events/search", [EventController::class, 'search']);
     Route::post("/events/event", [EventController::class, 'event']);
