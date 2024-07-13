@@ -25,7 +25,15 @@ class CategoriesController extends Controller
 
 
         foreach ($categories as $cat) {
-
+            $pastEvents = Event::whereHas('event_categories', function($query) use ($category) {
+                $query->where('category_id', $category->id);
+            })->where('date_to', '<', now("GMT+3"))
+              ->orderBy('date_from', 'asc')
+              ->with(['relatedEvents' => function($query) {
+                  $query->select('id', 'title', 'sub_title', 'title_ar', 'sub_title_ar', 'cover', 'thumbnail', 'landscape', 'portrait', 'url', 'date_from', 'date_to', 'location_id');
+              }, 'location'])
+              ->get();
+            $cat->past_events = $pastEvents;
             foreach ($cat->events as $event) {
                 if ($event) {
                     $event->time_from = Carbon::parse($event->date_from)->format('h:i A');
