@@ -15,12 +15,23 @@ class CategoriesController extends Controller
     public function get() {
         $categories = Category::with(["events" => function($q) {
             $q->where('date_to', '>=', now("GMT+3"))
-            ->orderBy("date_from", "asc")
-            ->with(['relatedEvents' => function($query) {
-                  $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                        ->where('date_to', '>=', now("GMT+3"));
-              }, "location"]);
+              ->orderBy("date_from", "asc")
+              ->with(['relatedEvents' => function($query) {
+                    $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
+                          ->where('date_to', '>=', now("GMT+3"));
+                }, "location"]);
         }])->get();
+
+        // Separate events into active and ended
+        $categories->transform(function ($category) {
+            $category->events = $category->events->partition(function ($event) {
+                return $event->date_to >= now("GMT+3");
+            })->flatMap(0)->concat($category->events->partition(function ($event) {
+                return $event->date_to < now("GMT+3");
+            })->flatMap(0));
+
+            return $category;
+        });
 
         foreach ($categories as $cat) {
             foreach ($cat->events as $event) {
