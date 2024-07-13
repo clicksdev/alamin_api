@@ -27,7 +27,7 @@ class CategoriesController extends Controller
             $upcomingEvents = $category->events;
 
             // Retrieve past events for this category
-            $pastEvents = Event::whereHas('categories', function($query) use ($category) {
+            $pastEvents = Event::whereHas('event_categories', function($query) use ($category) {
                 $query->where('category_id', $category->id);
             })->where('date_to', '<', now("GMT+3"))
               ->orderBy('date_from', 'asc')
