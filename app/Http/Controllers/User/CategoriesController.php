@@ -15,11 +15,11 @@ class CategoriesController extends Controller
 
     public function get() {
         $categories = Category::with(["events" => function($q) {
-            $q->where('date_to', '>=', now("GMT+3"))
+            $q
             ->orderBy("date_from", "asc")
             ->with(['relatedEvents' => function($query) {
                   $query->select("id", "title", "sub_title", "title_ar", "sub_title_ar", "cover", "thumbnail", "landscape", "portrait", "url", "date_from", "date_to", "location_id")
-                        ->where('date_to', '>=', now("GMT+3"));
+                        ;
               }, "location"]);
         }])->get();
 
